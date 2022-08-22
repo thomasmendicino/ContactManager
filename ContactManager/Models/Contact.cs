@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace ContactManager.Models
 {
-    internal abstract class Contact
+    public abstract class Contact
     {
         private string _name;
         private string _address;
@@ -39,5 +39,10 @@ namespace ContactManager.Models
         }
 
         public string Phone { get; set; }
+
+        public override string ToString()
+        {
+            return this._name;
+        }
     }
 }

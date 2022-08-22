@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ContactManager.Models
 {
-    internal class Vendor
+    public class Vendor : Contact
     {
     }
 }
