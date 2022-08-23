@@ -18,11 +18,14 @@ namespace ContactManager
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow //: Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            // Set the clock value immediately to the current time.
+            this.Clock.Text = DateTime.Now.ToString();
+            this.Loaded += MainWindow_Loaded;
         }
 
         private void ButtonAddName_Click(object sender, RoutedEventArgs e)
@@ -32,6 +35,19 @@ namespace ContactManager
                 lstNames.Items.Add(txtName.Text);
                 txtName.Clear();
             } */
+        }
+        
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
+            dispatcherTimer.Start();
+        }
+
+        private void dispatcherTimer_Tick(object? sender, EventArgs e)
+        {
+            this.Clock.Text = DateTime.Now.ToString();
         }
     }
 }
