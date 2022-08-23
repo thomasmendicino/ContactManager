@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using System.Windows;
 
 namespace ContactManager.Models
 {
-    public abstract class Contact
+    public abstract class Contact: INotifyPropertyChanged
     {
         private string _name;
         private string _address;
@@ -39,6 +40,8 @@ namespace ContactManager.Models
         }
 
         public string Phone { get; set; }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public override string ToString()
         {
