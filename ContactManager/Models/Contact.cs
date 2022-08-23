@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-
-namespace ContactManager.Models
+﻿namespace ContactManager.Models
 {
-    public abstract class Contact: INotifyPropertyChanged
+    public abstract class Contact
     {
-        private string _name;
-        private string _address;
-        private string _phone;
-        private string _company;
+        private string? _name;
+        private string? _address;
+        private string? _phone;
+        private Company? _company;
 
         public string Name
         {
@@ -39,11 +31,26 @@ namespace ContactManager.Models
             }
         }
 
-        public string Phone { get; set; }
+        public string Phone 
+        { 
+            get 
+            { 
+                return this._phone; 
+            } 
+            set 
+            { 
+                this._phone = value; 
+            } 
+        }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public Company Company
+        {
+            get { return _company; }
+            set { _company = value; }
+        }
 
-        public override string ToString()
+
+        public override string? ToString()
         {
             return this._name;
         }
