@@ -20,6 +20,7 @@ namespace ContactManager
     /// </summary>
     public partial class MainWindow //: Window
     {
+        private System.Windows.Threading.DispatcherTimer _dispatcherTimer;
         public MainWindow()
         {
             InitializeComponent();
@@ -39,15 +40,17 @@ namespace ContactManager
         
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
-            dispatcherTimer.Start();
+            _dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            _dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            _dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
+            _dispatcherTimer.Start();
         }
 
         private void dispatcherTimer_Tick(object? sender, EventArgs e)
         {
-            this.Clock.Text = DateTime.Now.ToString();
+            DateTime now = DateTime.Now;
+            this.Clock.Text = now.ToString();
+            _dispatcherTimer.Interval = TimeSpan.FromMilliseconds(1000 - now.Millisecond);
         }
     }
 }
