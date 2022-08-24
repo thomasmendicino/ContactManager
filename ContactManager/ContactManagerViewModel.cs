@@ -15,7 +15,7 @@ namespace ContactManager
 {
     public partial class ContactManagerViewModel:ObservableCollection<Contact>
     {
-        public ObservableCollection<Contact> contacts = new ObservableCollection<Contact>();
+        /* public ObservableCollection<Contact> contacts = new ObservableCollection<Contact>();
 
         public ContactManagerViewModel()
         {
@@ -40,6 +40,6 @@ namespace ContactManager
         {
             var textbox = state as TextBox;
             ////Add(new Customer { Name = textbox ?? textbox.Text, Address = "test2", Phone = "test2" });
-        }
+        } */
     }
 }
