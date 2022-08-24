@@ -35,9 +35,9 @@ namespace ContactManager.Views
             
         }
 
-        private void AddContact(object sender, RoutedEventArgs e)
+        /*private void AddContact(object sender, RoutedEventArgs e)
         {
 
-        }
+        }*/
     }
 }
