@@ -16,5 +16,14 @@ namespace ContactManager.Models
 			set { _notes = value; }
 		}
 
+		private Vendor? _vendor;
+
+		public Vendor? Vendor
+		{
+			get { return _vendor; }
+			set { _vendor = value; }
+		}
+
+
 	}
 }

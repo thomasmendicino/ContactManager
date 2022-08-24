@@ -5,7 +5,6 @@
         private string? _name;
         private string? _address;
         private string? _phone;
-        private Company? _company;
 
         public string Name
         {
@@ -42,13 +41,6 @@
                 this._phone = value; 
             } 
         }
-
-        public Company Company
-        {
-            get { return _company; }
-            set { _company = value; }
-        }
-
 
         public override string? ToString()
         {

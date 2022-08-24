@@ -3,11 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ContactManager"
+        xmlns:local="clr-namespace:ContactManager" xmlns:views="clr-namespace:ContactManager.Views"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=local:ContactManagerViewModel}"
-        Title="MainWindow" Height="450" Width="800">
-    <Window.Resources>
+        Title="Contact Manager" Height="450" Width="800">
+    <!-- <Window.Resources>
         <local:ContactManagerViewModel x:Key="MyContacts"/>
         
         <Style TargetType="ListBoxItem">
@@ -38,14 +38,14 @@
             </Border>
         </DataTemplate>
 
-    </Window.Resources>
+    </Window.Resources> -->
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="15" />
+            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -62,7 +62,7 @@
             <TextBox x:Name="txtName" />
             <Button x:Name="btnAdd" Margin="0,5,0,0" Click="ButtonAddName_Click">Add Name</Button>
         </StackPanel> -->
-        <StackPanel>
+        <!-- <StackPanel>
             <TextBlock FontFamily="Verdana" FontSize="11"
                Margin="5,15,0,10" FontWeight="Bold">My Contacts:</TextBlock>
             <ListBox Width="200" IsSynchronizedWithCurrentItem="True"
@@ -79,7 +79,9 @@
             <TextBox x:Name="addrEntry"></TextBox>
             <Button Content="Click Me" Command="{Binding AddContact}"></Button>
             <Button Content="Save" Command="{Binding Save}" CommandParameter="{x:Reference Name=nameEntry}"></Button>
-        </StackPanel>
+        </StackPanel> -->
+        <views:ManageContactsView />
+
         <TextBlock Name="Clock" d:Text="08/22/2022 8:48:00 PM" Grid.Row="2" Grid.Column="2" FontSize="12" />
 
     </Grid>
