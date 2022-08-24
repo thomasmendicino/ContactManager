@@ -1,4 +1,4 @@
-﻿using ContactManager.Models;
+﻿ using ContactManager.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ContactManager
 {
     public class FileAccess
-    {
+    {/*
         public string filePath = @"C:\Temp\contacts.txt";
         public FileAccess() {
             
@@ -56,5 +56,5 @@ namespace ContactManager
 
             return true;
         }
-    }
+    */}
 }

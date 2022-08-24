@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContactManager" xmlns:views="clr-namespace:ContactManager.Views"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance Type=local:ContactManagerViewModel}"
         Title="Contact Manager" Height="450" Width="800">
     <!-- <Window.Resources>
         <local:ContactManagerViewModel x:Key="MyContacts"/>
@@ -80,7 +79,7 @@
             <Button Content="Click Me" Command="{Binding AddContact}"></Button>
             <Button Content="Save" Command="{Binding Save}" CommandParameter="{x:Reference Name=nameEntry}"></Button>
         </StackPanel> -->
-        <views:ManageContactsView Grid.ColumnSpan="3" DataContext="{Binding ManageContactsViewModel}"/>
+        <views:ManageContactsView Grid.ColumnSpan="3" DataContext="{Binding CurrentViewModel}"/>
 
         <TextBlock Name="Clock" d:Text="08/22/2022 8:48:00 PM" Grid.Row="2" Grid.Column="2" FontSize="12" />
 

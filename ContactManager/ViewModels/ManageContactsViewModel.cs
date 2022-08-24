@@ -15,11 +15,11 @@ namespace ContactManager.ViewModels
 
         public IEnumerable<ContactViewModel> Contacts => _contacts;
 
-        public ICommand AddContact { get; }
+        public ICommand? AddContact { get; }
 
-        public ManageContactsViewModel(ICommand addContact)
+        public ManageContactsViewModel()
         {
-            AddContact = addContact;
+            //AddContact = addContact;
             _contacts = new ObservableCollection<ContactViewModel>();
 
             _contacts.Add(new ContactViewModel(new Customer() { Name="Thomas", Phone = "555-5555", Address = "1234 C Street"}));
