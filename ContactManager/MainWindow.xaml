@@ -49,7 +49,7 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="15" />
@@ -80,7 +80,7 @@
             <Button Content="Click Me" Command="{Binding AddContact}"></Button>
             <Button Content="Save" Command="{Binding Save}" CommandParameter="{x:Reference Name=nameEntry}"></Button>
         </StackPanel> -->
-        <views:ManageContactsView />
+        <views:ManageContactsView Grid.ColumnSpan="2" />
 
         <TextBlock Name="Clock" d:Text="08/22/2022 8:48:00 PM" Grid.Row="2" Grid.Column="2" FontSize="12" />
 

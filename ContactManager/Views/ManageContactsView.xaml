@@ -15,36 +15,22 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="15" />
         </Grid.ColumnDefinitions>
-
+        
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <!--<RowDefinition Height="Auto"/>-->
             </Grid.RowDefinitions>
 
-            <TextBlock FontSize="24" Text="All Contacts" />
+            <TextBlock FontSize="24" Text="All Contacts" HorizontalAlignment="Center"/>
         </Grid>
-
-        <ListView Grid.Row="1">
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
-            <ListItem />
+        
+            <ListView Grid.Row="1">
             <ListItem />
             <ListItem />
             <ListItem />
@@ -97,5 +83,26 @@
             </ListView.View>
 
         </ListView>
+
+        <TextBlock Text="Add Contact" Grid.Row="0" Grid.Column="1" FontSize="24" HorizontalAlignment="Center"></TextBlock>
+
+        <Grid Grid.Row="1" Grid.Column="1" Margin="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <CheckBox Content="Vendor" Grid.Row="0" Grid.Column="0" Margin="10"></CheckBox>
+            <CheckBox Content="Customer" Grid.Row="0" Grid.Column="1" Margin="10"></CheckBox>
+            <TextBlock Grid.Row="1" Text="Name" Margin="10" />
+            <TextBox Grid.Row="2" Text="Customer B" Margin="10 5 0 0"/>
+        </Grid>
+
     </Grid>
 </UserControl>
