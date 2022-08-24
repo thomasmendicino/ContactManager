@@ -27,7 +27,7 @@ namespace ContactManager
             // Set the clock value immediately to the current time.
             this.Clock.Text = DateTime.Now.ToString();
             this.Loaded += MainWindow_Loaded;
-            DataContext = new ContactManagerViewModel();
+            //DataContext = new ContactManagerViewModel();
         }
 
         private void ButtonAddName_Click(object sender, RoutedEventArgs e)

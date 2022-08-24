@@ -1,4 +1,5 @@
-﻿using ContactManager.Models;
+﻿using ContactManager.Commands;
+using ContactManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,7 +20,7 @@ namespace ContactManager.ViewModels
 
         public ManageContactsViewModel()
         {
-            //AddContact = addContact;
+            AddContact = new AddContactCommand();
             _contacts = new ObservableCollection<ContactViewModel>();
 
             _contacts.Add(new ContactViewModel(new Customer() { Name="Thomas", Phone = "555-5555", Address = "1234 C Street"}));
