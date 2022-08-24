@@ -24,5 +24,15 @@ namespace ContactManager.Views
         {
             InitializeComponent();
         }
+
+        private void ct_vendor_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ct_customer_Checked(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

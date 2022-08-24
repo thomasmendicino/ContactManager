@@ -91,17 +91,34 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <CheckBox Content="Vendor" Grid.Row="0" Grid.Column="0" Margin="10"></CheckBox>
-            <CheckBox Content="Customer" Grid.Row="0" Grid.Column="1" Margin="10"></CheckBox>
-            <TextBlock Grid.Row="1" Text="Name" Margin="10" />
-            <TextBox Grid.Row="2" Text="Customer B" Margin="10 5 0 0"/>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" >
+                    <RadioButton Name="ct_vendor" Checked="ct_vendor_Checked" Grid.Row="0" Grid.Column="0" Margin="40 20 10 0" >Vendor</RadioButton>
+                    <RadioButton Name="ct_customer" Checked="ct_customer_Checked" Grid.Row="0" Grid.Column="1" Margin="10 20 10 0">Customer</RadioButton>
+                </StackPanel>
+                <TextBlock Grid.Row="1" Text="Name" Margin="10 10 0 0" />
+                <TextBox Grid.Row="2" Text="Customer B" Margin="10 2 0 0" Grid.ColumnSpan="2" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="3" Text="Phone Number" Margin="10 5 0 0" />
+                <TextBox Grid.Row="4" Text="(510)555-1234" Margin="10 2 0 0" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="5" Text="Address" Margin="10" />
+                <TextBox Grid.Row="6" Text="1234 B Street, Benicia, CA 95555" Margin="10 5 0 0" TextWrapping="Wrap" MaxLines="4"/>
+                <TextBlock Grid.Row="7" Text="Notes" Margin="10"  />
+                <TextBox Grid.Row="8" Text="This person is really great!" Margin="10 5 0 0" TextWrapping="Wrap" MaxLines="10"/>
+            </StackPanel>
         </Grid>
 
     </Grid>
