@@ -1,3 +1,4 @@
+using ContactManager.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,9 +12,9 @@ namespace ContactManager.ViewModels
     {
         public ViewModelBase CurrentViewModel {get;}
 
-        public MainViewModel()
+        public MainViewModel(ContactList contactList)
         {
-            CurrentViewModel = new ManageContactsViewModel();
+            CurrentViewModel = new ManageContactsViewModel(contactList);
         }
 
     }

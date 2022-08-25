@@ -9,6 +9,8 @@ namespace ContactManager.DTOs
 {
     public class CompanyVendorDTO
     {
+        [Key]
+        public Guid Id { get; set; }
         [Required]
         public string CompanyName { get; set; }
         [Required]

@@ -17,15 +17,17 @@ namespace ContactManager.ViewModels
         public IEnumerable<ContactViewModel> Contacts => _contacts;
 
         public ICommand? AddContact { get; }
+        public ContactViewModel? Current { get; set; }
 
-        public ManageContactsViewModel()
+        public ManageContactsViewModel(ContactList contactList)
         {
-            AddContact = new AddContactCommand();
+            AddContact = new AddContactCommand(this, contactList);
             _contacts = new ObservableCollection<ContactViewModel>();
-
+            
             /*_contacts.Add(new ContactViewModel(new Customer() { Name="Thomas", Phone = "555-5555", Address = "1234 C Street"}));
             _contacts.Add(new ContactViewModel(new Customer() { Name = "Jonas", Phone = "555-5556", Address = "1234 D Street" }));
             _contacts.Add(new ContactViewModel(new Customer() { Name = "Jerry", Phone = "555-5557", Address = "1234 E Street" }));*/
         }
+
     }
 }

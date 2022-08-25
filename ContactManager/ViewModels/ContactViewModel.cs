@@ -1,9 +1,11 @@
-﻿using ContactManager.Models;
+﻿using ContactManager.Commands;
+using ContactManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ContactManager.ViewModels
 {
@@ -15,7 +17,6 @@ namespace ContactManager.ViewModels
         public string Phone => _contact.Phone;
         public string Address => _contact.Address;
 
-        
         public ContactViewModel(Contact contact)
         {
             _contact = contact;

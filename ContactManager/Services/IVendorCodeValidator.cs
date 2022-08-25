@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ContactManager.Services
 {
-    internal interface IVendorCodeValidator
+    public interface IVendorCodeValidator
     {
     }
 }

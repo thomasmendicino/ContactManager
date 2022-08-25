@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ContactManager.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,8 @@ namespace ContactManager.Services
 {
     public interface IContactCreator
     {
+        Task CreateCustomer(Customer customer);
+
+        Task CreateVendor(Vendor vendor);
     }
 }
