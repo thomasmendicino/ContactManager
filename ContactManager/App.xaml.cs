@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+using ContactManager.DbContexts;
+using ContactManager.Services;
 using ContactManager.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContactManager
 {
@@ -14,8 +11,22 @@ namespace ContactManager
     /// </summary>
     public partial class App : Application
     {
+        private const string CONNECTION_STRING = "Persist Security Info=False;User ID =wpfuser; Password=password1;Initial Catalog = ContactManager; Server=TOM-PC";
+        private readonly ContactManagerDbContextFactory _contactManagerDbContextFactory;
+
+        public App()
+        {
+            _contactManagerDbContextFactory = new ContactManagerDbContextFactory(CONNECTION_STRING);
+
+            // pass in db context to application.
+        }
         protected override void OnStartup(StartupEventArgs e)
         {
+            using (ContactManagerDbContext dbContext = _contactManagerDbContextFactory.CreateDbContext())
+            {
+                dbContext.Database.Migrate();
+            }
+
             MainWindow = new MainWindow {
                 DataContext = new MainViewModel()
             };
