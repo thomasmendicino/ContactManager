@@ -123,7 +123,15 @@
                     <GridViewColumn Header="Contact Type">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0 0 20 0" Text="Customer"/>
+                                <TextBlock Padding="0 0 20 0" Text="{Binding ContactType}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Notes">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="0 0 20 0" Text="{Binding Notes}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
