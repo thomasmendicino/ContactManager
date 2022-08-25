@@ -21,8 +21,9 @@ namespace ContactManager
             _dbContextFactory = new ContactManagerDbContextFactory(CONNECTION_STRING);
 
             IContactCreator contactCreator = new ContactCreator(_dbContextFactory);
+            IContactRepository contactRepo = new ContactRepository(_dbContextFactory);
             // pass in db context to application.
-            _contactList = new ContactList(contactCreator);
+            _contactList = new ContactList(contactCreator, contactRepo);
         }
         protected override void OnStartup(StartupEventArgs e)
         {

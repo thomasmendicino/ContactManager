@@ -12,8 +12,8 @@ namespace ContactManager.DTOs
         [Key]
         public Guid Id { get; set; }
         [Required]
-        public string CompanyName { get; set; }
+        public string? CompanyName { get; set; }
         [Required]
-        public string VendorCode { get; set; }
+        public string? VendorCode { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using ContactManager.Services;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,11 @@ namespace ContactManager.Models
     public class ContactList
     {
         private IContactCreator _contactCreator;
-        public ContactList(IContactCreator contactCreator)
+        private IContactRepository _contactRepo;
+        public ContactList(IContactCreator contactCreator, IContactRepository contactRepo)
         {
             _contactCreator = contactCreator;
+            _contactRepo = contactRepo;
         }
 
         public async Task AddContact(Contact contact)
@@ -25,6 +28,11 @@ namespace ContactManager.Models
             {
                 await _contactCreator.CreateVendor((Vendor)contact);
             }
+        }
+
+        public async Task<IEnumerable<Contact>> GetAllContacts()
+        {
+            return await _contactRepo.GetAllContacts();
         }
     }
 }
