@@ -2,9 +2,10 @@
 {
     public abstract class Contact
     {
-        private string? _name;
+        private string _name;
         private string? _address;
         private string? _phone;
+        private string company;
 
         public string Name
         {
@@ -42,7 +43,14 @@
             } 
         }
 
-        public override string? ToString()
+        public string Company
+        {
+            get { return company; }
+            set { company = value; }
+        }
+
+
+        public override string ToString()
         {
             return this._name;
         }
