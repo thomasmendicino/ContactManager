@@ -37,6 +37,8 @@ namespace ContactManager.Services
             using (ContactManagerDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
                 dbContext.Vendors.Add(vendorDTO);
+
+                dbContext.SaveChanges();
             }
         }
 

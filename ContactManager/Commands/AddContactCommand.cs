@@ -14,23 +14,23 @@ namespace ContactManager.Commands
 {
     public class AddContactCommand : AsyncCommandBase
     {
-        private readonly ListContactsViewModel _listContactsViewModel;
+        private readonly AddCustomerViewModel? _addCustomerViewModel;
+        private readonly AddVendorViewModel? _addVendorViewModel;
         private readonly ContactList _contactList;
         private readonly NavigationStore _navigationStore;
         private readonly Func<ViewModelBase> _createViewModel;
 
-        public AddContactCommand(ListContactsViewModel listContactsViewModel, ContactList contactList, 
-            NavigationStore navigationStore, Func<ListContactsViewModel> createListContactsViewModel)
+        public AddContactCommand(ContactList contactList, NavigationStore navigationStore, Func<ListContactsViewModel> createListContactsViewModel,
+            AddCustomerViewModel? addCustomerViewModel, AddVendorViewModel? addVendorViewModel)
         {
-            _listContactsViewModel = listContactsViewModel;
-            _contactList = contactList;
             _navigationStore = navigationStore;
             _createViewModel = createListContactsViewModel;
-
-            _listContactsViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            _addCustomerViewModel = addCustomerViewModel;
+            _addVendorViewModel = addVendorViewModel;
+            _contactList = contactList;
         }
 
-        private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        /*private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ContactViewModel.Name))
             {
@@ -41,15 +41,26 @@ namespace ContactManager.Commands
         {
             return //!string.IsNullOrEmpty(_manageContactsViewModel.CurrentName) &&
                 base.CanExecute(parameter);
-        }
+        }*/
 
         public async override Task ExecuteAsync(object? parameter)
         {
-            Customer customer = new Customer() { Name = "Test", Company = "Company A" };
+            Contact newContact;
+            if (_addVendorViewModel != null)
+            {
+                newContact = MapVendor(_addVendorViewModel);
+
+                // await CheckForCompanyName();
+                // do something.
+            }
+            else
+            {
+                newContact = MapCustomer(_addCustomerViewModel);
+            }
 
             try 
             { 
-                await _contactList.AddContact(customer);
+                await _contactList.AddContact(newContact);
                 
                 _navigationStore.CurrentViewModel = _createViewModel();
             }
@@ -57,6 +68,30 @@ namespace ContactManager.Commands
                 
                 MessageBox.Show(string.Concat("Error saving contact: ",e.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private Contact MapCustomer(AddCustomerViewModel addCustomerViewModel)
+        {
+            return new Customer
+            {
+                Name = addCustomerViewModel.Name,
+                Phone = addCustomerViewModel.Phone,
+                Address = addCustomerViewModel.Address,
+                Notes = addCustomerViewModel.Notes,
+                Company = addCustomerViewModel.Company
+            };
+        }
+
+        private Contact MapVendor(AddVendorViewModel addVendorViewModel)
+        {
+            return new Vendor
+            {
+                Name = addVendorViewModel.Name,
+                Phone = addVendorViewModel.Phone,
+                Address = addVendorViewModel.Address,
+                Company = addVendorViewModel.Company,
+                VendorCode = addVendorViewModel.VendorCode
+            };
         }
     }
 }

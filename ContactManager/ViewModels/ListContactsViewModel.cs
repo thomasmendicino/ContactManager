@@ -24,10 +24,10 @@ namespace ContactManager.ViewModels
 
         public ListContactsViewModel(ContactList contactList, NavigationStore navigationStore, Func<AddCustomerViewModel> addCustomerViewModel, Func<AddVendorViewModel> addVendorViewModel)
         {
-            AddCustomer = new AddContactCommand(this, contactList, navigationStore, addCustomerViewModel);
+            //AddCustomer = new AddContactCommand(navigationStore, addCustomerViewModel);
             //AddCustomer = new AddContactCommand(this, contactList, addCustomerViewModel);
-            //AddCustomer = new NavigateCommand(navigationStore, addCustomerViewModel);
-            //AddVendor = new NavigateCommand(navigationStore, addVendorViewModel);
+            AddCustomer = new NavigateCommand(navigationStore, addCustomerViewModel);
+            AddVendor = new NavigateCommand(navigationStore, addVendorViewModel);
 
             _contacts = new ObservableCollection<ContactViewModel>();
             _contactList = contactList;

@@ -48,12 +48,12 @@ namespace ContactManager
 
         private AddVendorViewModel CreateVendorViewModel()
         {
-            return new AddVendorViewModel(_navigationStore, CreateContactListViewModel);
+            return new AddVendorViewModel(_contactList, _navigationStore, CreateContactListViewModel);
         }
 
         private AddCustomerViewModel CreateCustomerViewModel()
         {
-            return new AddCustomerViewModel(_navigationStore, CreateContactListViewModel);
+            return new AddCustomerViewModel(_contactList, _navigationStore, CreateContactListViewModel);
         }
 
         private ListContactsViewModel CreateContactListViewModel()
