@@ -1,4 +1,6 @@
 using ContactManager.Models;
+using ContactManager.Stores;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,12 +12,19 @@ namespace ContactManager.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        public ViewModelBase CurrentViewModel {get;}
+        private readonly NavigationStore _navigationStore;
+        public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
-        public MainViewModel(ContactList contactList)
+        public MainViewModel(NavigationStore navigationStore)
         {
-            CurrentViewModel = new ManageContactsViewModel(contactList);
+            _navigationStore = navigationStore;
+
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
         }
 
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
+        }
     }
 }

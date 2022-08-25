@@ -1,5 +1,7 @@
 ﻿using ContactManager.Models;
+using ContactManager.Stores;
 using ContactManager.ViewModels;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,15 +14,20 @@ namespace ContactManager.Commands
 {
     public class AddContactCommand : AsyncCommandBase
     {
-        private readonly ManageContactsViewModel _manageContactsViewModel;
+        private readonly ListContactsViewModel _listContactsViewModel;
         private readonly ContactList _contactList;
+        private readonly NavigationStore _navigationStore;
+        private readonly Func<ViewModelBase> _createViewModel;
 
-        public AddContactCommand(ManageContactsViewModel manageContactsViewModel, ContactList contactList)
+        public AddContactCommand(ListContactsViewModel listContactsViewModel, ContactList contactList, 
+            NavigationStore navigationStore, Func<ListContactsViewModel> createListContactsViewModel)
         {
-            _manageContactsViewModel = manageContactsViewModel;
+            _listContactsViewModel = listContactsViewModel;
             _contactList = contactList;
+            _navigationStore = navigationStore;
+            _createViewModel = createListContactsViewModel;
 
-            _manageContactsViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            _listContactsViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
         private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -40,9 +47,15 @@ namespace ContactManager.Commands
         {
             Customer customer = new Customer() { Name = "Test", Company = "Company A" };
 
-            try { await _contactList.AddContact(customer); }
+            try 
+            { 
+                await _contactList.AddContact(customer);
+                
+                _navigationStore.CurrentViewModel = _createViewModel();
+            }
             catch(Exception e) {
-                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                
+                MessageBox.Show(string.Concat("Error saving contact: ",e.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

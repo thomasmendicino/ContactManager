@@ -1,5 +1,6 @@
 ﻿using ContactManager.Commands;
 using ContactManager.Models;
+using ContactManager.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,19 +11,24 @@ using System.Windows.Input;
 
 namespace ContactManager.ViewModels
 {
-    public class ManageContactsViewModel : ViewModelBase
+    public class ListContactsViewModel : ViewModelBase
     {
         private readonly ObservableCollection<ContactViewModel> _contacts;
 
         public IEnumerable<ContactViewModel> Contacts => _contacts;
         private readonly ContactList _contactList;
 
-        public ICommand? AddContact { get; }
+        public ICommand? AddCustomer { get; }
+        public ICommand? AddVendor { get; }
         public ContactViewModel? Current { get; set; }
 
-        public ManageContactsViewModel(ContactList contactList)
+        public ListContactsViewModel(ContactList contactList, NavigationStore navigationStore, Func<AddCustomerViewModel> addCustomerViewModel, Func<AddVendorViewModel> addVendorViewModel)
         {
-            AddContact = new AddContactCommand(this, contactList);
+            AddCustomer = new AddContactCommand(this, contactList, navigationStore, addCustomerViewModel);
+            //AddCustomer = new AddContactCommand(this, contactList, addCustomerViewModel);
+            //AddCustomer = new NavigateCommand(navigationStore, addCustomerViewModel);
+            //AddVendor = new NavigateCommand(navigationStore, addVendorViewModel);
+
             _contacts = new ObservableCollection<ContactViewModel>();
             _contactList = contactList;
 

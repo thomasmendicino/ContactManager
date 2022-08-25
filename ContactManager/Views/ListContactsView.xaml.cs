@@ -18,9 +18,9 @@ namespace ContactManager.Views
     /// <summary>
     /// Interaction logic for ManageContactsView.xaml
     /// </summary>
-    public partial class ManageContactsView : UserControl
+    public partial class ListContactsView : UserControl
     {
-        public ManageContactsView()
+        public ListContactsView()
         {
             InitializeComponent();
         }
