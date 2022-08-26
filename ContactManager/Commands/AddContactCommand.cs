@@ -1,6 +1,7 @@
 ﻿using ContactManager.Models;
 using ContactManager.Stores;
 using ContactManager.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
@@ -95,9 +96,9 @@ namespace ContactManager.Commands
                                
                 _navigationStore.CurrentViewModel = _createViewModel();
             }
-            catch (InvalidOperationException)
+            catch (DbUpdateException)
             {
-                MessageBox.Show("Duplicate vendor master list record.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Duplicate vendor master list record. Vendor was saved, but master vendor list was not updated.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 
                 _navigationStore.CurrentViewModel = _createViewModel();
             }

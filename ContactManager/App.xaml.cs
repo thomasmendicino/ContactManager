@@ -17,6 +17,7 @@ namespace ContactManager
         private const string CONNECTION_STRING = "Persist Security Info=False;User ID =wpfuser; Password=password1;Initial Catalog = ContactManager; Server=TOM-PC";
         private readonly ContactManagerDbContextFactory _dbContextFactory;
         private readonly ContactList _contactList;
+        private readonly CompanyVendor _companyVendor;
         private readonly NavigationStore _navigationStore;
 
         public App()
@@ -28,6 +29,7 @@ namespace ContactManager
             IVendorCodeValidator vendorCodeValidator = new VendorCodeValidator(_dbContextFactory);
             // pass in db context to application.
             _contactList = new ContactList(contactCreator, contactRepo, vendorCodeValidator);
+            _companyVendor = new CompanyVendor(contactRepo);
 
             _navigationStore = new NavigationStore();
         }
@@ -38,7 +40,7 @@ namespace ContactManager
                 dbContext.Database.Migrate();
             }
 
-            _navigationStore.CurrentViewModel = new ListContactsViewModel(_contactList, _navigationStore, CreateCustomerViewModel, CreateVendorViewModel);
+            _navigationStore.CurrentViewModel = new ListContactsViewModel(_contactList, _navigationStore, CreateCustomerViewModel, CreateVendorViewModel, CreateVendorMasterListViewModel);
 
             MainWindow = new MainWindow {
                 DataContext = new MainViewModel(_navigationStore)
@@ -59,7 +61,12 @@ namespace ContactManager
 
         private ListContactsViewModel CreateContactListViewModel()
         {
-            return new ListContactsViewModel(_contactList, _navigationStore, CreateCustomerViewModel, CreateVendorViewModel);
+            return new ListContactsViewModel(_contactList, _navigationStore, CreateCustomerViewModel, CreateVendorViewModel, CreateVendorMasterListViewModel);
+        }
+
+        private VendorMasterListViewModel CreateVendorMasterListViewModel()
+        {
+            return new VendorMasterListViewModel(_companyVendor, _navigationStore, CreateContactListViewModel);
         }
     }
 }

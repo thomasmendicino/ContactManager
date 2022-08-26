@@ -20,23 +20,22 @@ namespace ContactManager.ViewModels
 
         public ICommand? AddCustomer { get; }
         public ICommand? AddVendor { get; }
+        public ICommand? MasterVendorList { get; }
         public ContactViewModel? Current { get; set; }
 
-        public ListContactsViewModel(ContactList contactList, NavigationStore navigationStore, Func<AddCustomerViewModel> addCustomerViewModel, Func<AddVendorViewModel> addVendorViewModel)
+        public ListContactsViewModel(ContactList contactList, NavigationStore navigationStore, 
+            Func<AddCustomerViewModel> addCustomerViewModel, 
+            Func<AddVendorViewModel> addVendorViewModel,
+            Func<VendorMasterListViewModel> vendorMasterListViewModel)
         {
-            //AddCustomer = new AddContactCommand(navigationStore, addCustomerViewModel);
-            //AddCustomer = new AddContactCommand(this, contactList, addCustomerViewModel);
             AddCustomer = new NavigateCommand(navigationStore, addCustomerViewModel);
             AddVendor = new NavigateCommand(navigationStore, addVendorViewModel);
+            MasterVendorList = new NavigateCommand(navigationStore, vendorMasterListViewModel);
 
             _contacts = new ObservableCollection<ContactViewModel>();
             _contactList = contactList;
 
             UpdateContactList();
-            /*_contacts.Add(new ContactViewModel(new Customer() { Name="Thomas", Phone = "555-5555", Address = "1234 C Street"}));
-            _contacts.Add(new ContactViewModel(new Customer() { Name = "Jonas", Phone = "555-5556", Address = "1234 D Street" }));
-            _contacts.Add(new ContactViewModel(new Customer() { Name = "Jerry", Phone = "555-5557", Address = "1234 E Street" }));
-            _contacts.Add(new ContactViewModel(new Vendor() { Name = "Jerry", Phone = "555-5557", Address = "1234 E Street" }));*/
         }
 
         private async void UpdateContactList()

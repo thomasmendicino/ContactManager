@@ -63,10 +63,30 @@ namespace ContactManager.Services
                 Name = vendorDTO.Name,
                 Phone = vendorDTO.Phone,
                 Address = vendorDTO.Address,
-                Company = vendorDTO.Company//,
-                //VendorCode = vendorDTO.VendorCode
+                Company = vendorDTO.Company
             };
         }
- 
+
+        public async Task<IEnumerable<Vendor>> GetCompanyVendorList()
+        {
+            using (ContactManagerDbContext dbContext = _dbContextFactory.CreateDbContext())
+            {
+                IEnumerable<CompanyVendorDTO> companyVendorDTOs = await dbContext.VendorMasterList.ToListAsync();
+
+                IEnumerable<Vendor> companyVendors = companyVendorDTOs.Select(c => MapCompanyVendorDTO(c));
+
+                return companyVendors;
+            }
+        }
+
+        private Vendor MapCompanyVendorDTO(CompanyVendorDTO companyVendorDTO)
+        {
+            return new Vendor
+            {
+                Company = companyVendorDTO.CompanyName,
+                VendorCode = companyVendorDTO.VendorCode
+            };
+        }
+
     }
 }

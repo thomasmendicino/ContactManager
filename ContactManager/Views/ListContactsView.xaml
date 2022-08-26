@@ -66,6 +66,7 @@
             <RowDefinition Height="Auto" />
             <!--<RowDefinition Height="*" />-->
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="10" />
         </Grid.RowDefinitions>
 
@@ -195,6 +196,6 @@
                 ItemTemplateSelector="{StaticResource dataTemplateSelector}">
             </ListBox>
         </Grid>-->
-
+        <Button Grid.Row="3" Grid.Column="0" Command="{Binding MasterVendorList}" Content="Vendor Master List" Width="150" Margin="5" HorizontalAlignment="Left"/>
     </Grid>
 </UserControl>
