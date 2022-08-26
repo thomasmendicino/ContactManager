@@ -3,41 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ContactManager" xmlns:views="clr-namespace:ContactManager.Views"
+        xmlns:local="clr-namespace:ContactManager" 
+        xmlns:views="clr-namespace:ContactManager.Views"
+        xmlns:vms="clr-namespace:ContactManager.ViewModels"
         mc:Ignorable="d"
         Title="Contact Manager" Height="450" Width="800">
-    <!-- <Window.Resources>
-        <local:ContactManagerViewModel x:Key="MyContacts"/>
-        
-        <Style TargetType="ListBoxItem">
-            <Setter Property="FontFamily" Value="Verdana"/>
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="Padding" Value="10"/>
-        </Style>
-        <DataTemplate x:Key="DetailTemplate">
-            <Border Width="300" Height="100" Margin="20"
-              BorderBrush="Aqua" BorderThickness="1" Padding="8">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Name:"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Name}"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Phone:"/>
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Phone}"/>
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Address:"/>
-                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=Address}"/>
-                </Grid>
-            </Border>
-        </DataTemplate>
-
-    </Window.Resources> -->
+    
     <Grid Margin="10">
 
         <Grid.RowDefinitions>
@@ -79,7 +50,24 @@
             <Button Content="Click Me" Command="{Binding AddContact}"></Button>
             <Button Content="Save" Command="{Binding Save}" CommandParameter="{x:Reference Name=nameEntry}"></Button>
         </StackPanel> -->
-        <views:ManageContactsView Grid.ColumnSpan="3" DataContext="{Binding CurrentViewModel}"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="4">
+            <Grid Margin="20 10">
+                <Grid.Resources>
+                    <DataTemplate DataType="{x:Type vms:ListContactsViewModel}">
+                        <views:ListContactsView />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vms:AddCustomerViewModel}">
+                        <views:AddCustomerView />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vms:AddVendorViewModel}">
+                        <views:AddVendorView />
+                    </DataTemplate>
+                </Grid.Resources>
+
+                <ContentControl Content="{Binding CurrentViewModel}" />
+            </Grid>
+        </ScrollViewer>    
+        <!--<views:ManageContactsView Grid.ColumnSpan="3" DataContext="{Binding CurrentViewModel}"/> -->
 
         <TextBlock Name="Clock" d:Text="08/22/2022 8:48:00 PM" Grid.Row="2" Grid.Column="2" FontSize="12" />
 

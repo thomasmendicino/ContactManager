@@ -23,8 +23,8 @@ namespace ContactManager.Services
         {
             using (ContactManagerDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
-                IEnumerable<CustomerDTO> customerDTOs = await dbContext.Customers.ToListAsync();
-                IEnumerable<VendorDTO> vendorDTOs = await dbContext.Vendors.ToListAsync();
+                IEnumerable<CustomerDTO> customerDTOs = await dbContext.Customer.ToListAsync();
+                IEnumerable<VendorDTO> vendorDTOs = await dbContext.Vendor.ToListAsync();
                 
                 IEnumerable<Contact> contacts = null;
                 IEnumerable<Contact> vendors = null;

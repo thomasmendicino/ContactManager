@@ -14,9 +14,18 @@ namespace ContactManager.DbContexts
         {
 
         }
-        public DbSet<CustomerDTO> Customers { get; set; }
-        public DbSet<VendorDTO> Vendors { get; set; }
+        public DbSet<CustomerDTO> Customer { get; set; }
+        public DbSet<VendorDTO> Vendor { get; set; }
         public DbSet<CompanyVendorDTO> VendorMasterList { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CompanyVendorDTO>(entity => {
+                entity.HasIndex(v => v.VendorCode).IsUnique();
+                entity.HasIndex(c => c.CompanyName).IsUnique();
+            });
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

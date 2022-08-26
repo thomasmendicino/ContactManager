@@ -9,11 +9,12 @@ namespace ContactManager.DTOs
 {
     public class CompanyVendorDTO
     {
+        // This doesn't seem to be a sequential guid which could lead to performance problems.
         [Key]
         public Guid Id { get; set; }
         [Required]
-        public string? CompanyName { get; set; }
+        public string CompanyName { get; set; }
         [Required]
-        public string? VendorCode { get; set; }
+        public string VendorCode { get; set; }
     }
 }
