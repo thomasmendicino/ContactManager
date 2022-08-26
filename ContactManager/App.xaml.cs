@@ -25,8 +25,9 @@ namespace ContactManager
 
             IContactCreator contactCreator = new ContactCreator(_dbContextFactory);
             IContactRepository contactRepo = new ContactRepository(_dbContextFactory);
+            IVendorCodeValidator vendorCodeValidator = new VendorCodeValidator(_dbContextFactory);
             // pass in db context to application.
-            _contactList = new ContactList(contactCreator, contactRepo);
+            _contactList = new ContactList(contactCreator, contactRepo, vendorCodeValidator);
 
             _navigationStore = new NavigationStore();
         }

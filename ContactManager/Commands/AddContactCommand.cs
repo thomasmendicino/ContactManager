@@ -20,6 +20,7 @@ namespace ContactManager.Commands
         private readonly NavigationStore _navigationStore;
         private readonly Func<ViewModelBase> _createViewModel;
         private bool _duplicateCompany = true;
+        private bool _saveVendorCode;
 
         public AddContactCommand(ContactList contactList, NavigationStore navigationStore, Func<ListContactsViewModel> createListContactsViewModel,
             AddCustomerViewModel? addCustomerViewModel, AddVendorViewModel? addVendorViewModel)
@@ -49,7 +50,7 @@ namespace ContactManager.Commands
         }
         public override bool CanExecute(object? parameter)
         {
-            return !_duplicateCompany &&//!string.IsNullOrEmpty(_manageContactsViewModel.CurrentName) &&
+            return !_duplicateCompany && !string.IsNullOrEmpty(_addVendorViewModel?.Company) &&
                 base.CanExecute(parameter);
         }
 
@@ -60,8 +61,23 @@ namespace ContactManager.Commands
             {
                 newContact = MapVendor(_addVendorViewModel);
 
-                // await CheckForCompanyName();
-                // do something.
+                string existingVendorCode = await _contactList.GetVendorCode((Vendor)newContact);
+                
+                if (!string.IsNullOrEmpty(existingVendorCode))
+                {
+                    if (!_addVendorViewModel.VendorCode.Equals(existingVendorCode))
+                    {
+                        MessageBox.Show($"Company already exists in Master Vendor List with Vendor Code {existingVendorCode}. The entered code will not be saved.", 
+                            "Error", 
+                            MessageBoxButton.OK, 
+                            MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    _saveVendorCode = true;
+                }
+                
             }
             else
             {
@@ -71,6 +87,16 @@ namespace ContactManager.Commands
             try 
             { 
                 await _contactList.AddContact(newContact);
+
+                if (_saveVendorCode) {
+                    await _contactList.SaveVendorCode(newContact);
+                }                
+                               
+                _navigationStore.CurrentViewModel = _createViewModel();
+            }
+            catch (DuplicateVendorCodeException)
+            {
+                MessageBox.Show(, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 
                 _navigationStore.CurrentViewModel = _createViewModel();
             }

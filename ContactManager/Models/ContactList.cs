@@ -12,10 +12,13 @@ namespace ContactManager.Models
     {
         private IContactCreator _contactCreator;
         private IContactRepository _contactRepo;
-        public ContactList(IContactCreator contactCreator, IContactRepository contactRepo)
+        private IVendorCodeValidator _vendorCodeValidator;
+
+        public ContactList(IContactCreator contactCreator, IContactRepository contactRepo, IVendorCodeValidator vendorCodeValidator)
         {
             _contactCreator = contactCreator;
             _contactRepo = contactRepo;
+            _vendorCodeValidator = vendorCodeValidator;
         }
 
         public async Task AddContact(Contact contact)
@@ -33,6 +36,11 @@ namespace ContactManager.Models
         public async Task<IEnumerable<Contact>> GetAllContacts()
         {
             return await _contactRepo.GetAllContacts();
+        }
+
+        public async Task<string> GetVendorCode(Vendor vendor)
+        {
+            return await _vendorCodeValidator.GetVendorCode(vendor);
         }
     }
 }
