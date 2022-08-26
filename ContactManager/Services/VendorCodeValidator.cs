@@ -19,13 +19,14 @@ namespace ContactManager.Services
             _dbContextFactory = dbContextFactory;
         }
 
-        public async Task<string> GetVendorCode(Vendor vendor)
+        public async Task<Vendor?> GetVendorFromMasterList(Vendor vendor)
         {
             using (ContactManagerDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
-                var companyVendorDTO = await dbContext.VendorMasterList.FirstOrDefaultAsync(c => c.CompanyName == vendor.Company);
+                // Return vendor code and company name from any match of vendor code or company name.
+                var companyVendorDTO = await dbContext.VendorMasterList.FirstOrDefaultAsync(v => v.VendorCode == vendor.VendorCode || v.CompanyName == vendor.Company);
                 
-                return companyVendorDTO == null ? String.Empty : companyVendorDTO.VendorCode;
+                return companyVendorDTO == null ? null : new Vendor { VendorCode = companyVendorDTO.VendorCode, Company = companyVendorDTO.CompanyName };
             }
         }
     }

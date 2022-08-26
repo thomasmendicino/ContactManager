@@ -36,7 +36,7 @@
             <TextBox Text="{Binding Address}" Margin="10 5 10 0" TextWrapping="Wrap" MaxLines="4"/>
             <TextBlock Text="Company" Margin="10" />
             <TextBox Text="{Binding Company}" Margin="10 5 10 0" TextWrapping="Wrap" MaxLines="2"/>
-            <TextBlock Text="Notes" Margin="10" />
+            <TextBlock Text="Vendor Code" Margin="10" />
             <TextBox Text="{Binding VendorCode}" Margin="10 5 10 0" MaxLines="1" />
 
         </StackPanel>

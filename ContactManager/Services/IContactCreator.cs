@@ -12,5 +12,7 @@ namespace ContactManager.Services
         Task CreateCustomer(Customer customer);
 
         Task CreateVendor(Vendor vendor);
+
+        Task CreateVendorMasterRecord(Vendor vendor);
     }
 }

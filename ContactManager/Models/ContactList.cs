@@ -38,9 +38,14 @@ namespace ContactManager.Models
             return await _contactRepo.GetAllContacts();
         }
 
-        public async Task<string> GetVendorCode(Vendor vendor)
+        public async Task<Vendor?> GetVendorFromMasterList(Vendor vendor)
         {
-            return await _vendorCodeValidator.GetVendorCode(vendor);
+            return await _vendorCodeValidator.GetVendorFromMasterList(vendor);
+        }        
+
+        public async Task AddVendorMasterRecord(Vendor vendor)
+        {
+            await _contactCreator.CreateVendorMasterRecord(vendor);
         }
     }
 }

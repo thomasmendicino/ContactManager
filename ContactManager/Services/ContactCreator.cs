@@ -24,7 +24,7 @@ namespace ContactManager.Services
 
             using (ContactManagerDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
-                dbContext.Customers.Add(customerDTO);
+                dbContext.Customer.Add(customerDTO);
 
                 dbContext.SaveChanges();
             }
@@ -36,7 +36,7 @@ namespace ContactManager.Services
 
             using (ContactManagerDbContext dbContext = _dbContextFactory.CreateDbContext())
             {
-                dbContext.Vendors.Add(vendorDTO);
+                dbContext.Vendor.Add(vendorDTO);
 
                 dbContext.SaveChanges();
             }
@@ -64,6 +64,25 @@ namespace ContactManager.Services
             };
         }
 
-        
+        public async Task CreateVendorMasterRecord(Vendor vendor)
+        {
+            CompanyVendorDTO companyVendorDTO = MapCompanyVendor(vendor);
+
+            using (ContactManagerDbContext dbContext = _dbContextFactory.CreateDbContext())
+            {
+                dbContext.VendorMasterList.Add(companyVendorDTO);
+
+                dbContext.SaveChanges();
+            }
+        }
+
+        private CompanyVendorDTO MapCompanyVendor(Vendor vendor)
+        {
+            return new CompanyVendorDTO
+            {
+                VendorCode = vendor.VendorCode,
+                CompanyName = vendor.Company
+            };
+        }
     }
 }

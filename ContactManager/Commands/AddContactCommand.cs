@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace ContactManager.Commands
 {
@@ -34,23 +35,14 @@ namespace ContactManager.Commands
 
         private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (_addVendorViewModel != null && e.PropertyName == nameof(ContactViewModel.VendorCode))
+            if (_addVendorViewModel != null)
             {
-                // In order to allow submit, the following must be true
-                // 1. Contact is type "customer" OR
-                // 2a. company name is not a duplicate AND
-                // 2b. vendor code is populated OR
-                // 3a. company name is a duplicate AND
-                // 3b. vendor code is not supplied.
-                // So, we should disable the Submit button until and unless one of the above conditions is met.
-                // check for duplicate.
-                // since it is async, 
                 OnCanExecuteChanged();
             }
         }
         public override bool CanExecute(object? parameter)
         {
-            return !_duplicateCompany && !string.IsNullOrEmpty(_addVendorViewModel?.Company) &&
+            return //!_duplicateCompany && !string.IsNullOrEmpty(_addVendorViewModel?.Company) &&
                 base.CanExecute(parameter);
         }
 
@@ -60,24 +52,29 @@ namespace ContactManager.Commands
             if (_addVendorViewModel != null)
             {
                 newContact = MapVendor(_addVendorViewModel);
+                string inputVendorCode = _addVendorViewModel.VendorCode;
+                string inputCompanyName = _addVendorViewModel.Company;
 
-                string existingVendorCode = await _contactList.GetVendorCode((Vendor)newContact);
+                Vendor existingVendor = await _contactList.GetVendorFromMasterList((Vendor)newContact);
                 
-                if (!string.IsNullOrEmpty(existingVendorCode))
+                if (existingVendor == null && ValidVendorCode(inputCompanyName, inputVendorCode))
                 {
-                    if (!_addVendorViewModel.VendorCode.Equals(existingVendorCode))
-                    {
-                        MessageBox.Show($"Company already exists in Master Vendor List with Vendor Code {existingVendorCode}. The entered code will not be saved.", 
-                            "Error", 
-                            MessageBoxButton.OK, 
-                            MessageBoxImage.Error);
-                    }
+                    _saveVendorCode = true;                    
                 }
                 else
                 {
-                    _saveVendorCode = true;
-                }
-                
+                    if (!string.IsNullOrEmpty(inputVendorCode) && 
+                        !(inputVendorCode.Equals(existingVendor.VendorCode) &&
+                        inputCompanyName.Equals(existingVendor.Company)))
+                    {
+                        MessageBox.Show($"The provided vendor code '{ inputVendorCode }' or company name '{inputCompanyName}' belongs to another entry in the Vendor Master List. \nPlease enter a unique vendor code and company name, or use a previously saved company.",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+                        
+                        return;
+                    }
+                }                
             }
             else
             {
@@ -89,14 +86,14 @@ namespace ContactManager.Commands
                 await _contactList.AddContact(newContact);
 
                 if (_saveVendorCode) {
-                    await _contactList.SaveVendorCode(newContact);
+                    await _contactList.AddVendorMasterRecord((Vendor)newContact);
                 }                
                                
                 _navigationStore.CurrentViewModel = _createViewModel();
             }
-            catch (DuplicateVendorCodeException)
+            catch (InvalidOperationException)
             {
-                MessageBox.Show(, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Duplicate vendor master list record.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 
                 _navigationStore.CurrentViewModel = _createViewModel();
             }
@@ -104,6 +101,11 @@ namespace ContactManager.Commands
                 
                 MessageBox.Show(string.Concat("Error saving contact: ",e.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private bool ValidVendorCode(string inputCompanyName, string inputVendorCode)
+        {
+            return !string.IsNullOrEmpty(inputCompanyName) && !string.IsNullOrEmpty(inputVendorCode);
         }
 
         private Contact MapCustomer(AddCustomerViewModel addCustomerViewModel)
