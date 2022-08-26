@@ -60,5 +60,6 @@ namespace ContactManager.ViewModels
             Cancel = new NavigateCommand(navigationStore, listContactsViewModel);
         }
 
+        
     }
 }

@@ -19,6 +19,7 @@ namespace ContactManager.Commands
         private readonly ContactList _contactList;
         private readonly NavigationStore _navigationStore;
         private readonly Func<ViewModelBase> _createViewModel;
+        private bool _duplicateCompany = true;
 
         public AddContactCommand(ContactList contactList, NavigationStore navigationStore, Func<ListContactsViewModel> createListContactsViewModel,
             AddCustomerViewModel? addCustomerViewModel, AddVendorViewModel? addVendorViewModel)
@@ -30,18 +31,27 @@ namespace ContactManager.Commands
             _contactList = contactList;
         }
 
-        /*private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(ContactViewModel.Name))
+            if (_addVendorViewModel != null && e.PropertyName == nameof(ContactViewModel.VendorCode))
             {
+                // In order to allow submit, the following must be true
+                // 1. Contact is type "customer" OR
+                // 2a. company name is not a duplicate AND
+                // 2b. vendor code is populated OR
+                // 3a. company name is a duplicate AND
+                // 3b. vendor code is not supplied.
+                // So, we should disable the Submit button until and unless one of the above conditions is met.
+                // check for duplicate.
+                // since it is async, 
                 OnCanExecuteChanged();
             }
         }
         public override bool CanExecute(object? parameter)
         {
-            return //!string.IsNullOrEmpty(_manageContactsViewModel.CurrentName) &&
+            return !_duplicateCompany &&//!string.IsNullOrEmpty(_manageContactsViewModel.CurrentName) &&
                 base.CanExecute(parameter);
-        }*/
+        }
 
         public async override Task ExecuteAsync(object? parameter)
         {
