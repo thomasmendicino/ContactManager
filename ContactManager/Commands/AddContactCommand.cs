@@ -63,18 +63,22 @@ namespace ContactManager.Commands
                 }
                 else
                 {
+                    // a non-empty vendor code was provided.
+                    // AND either VendorCode or CompanyName doesn't match the record that was found.
                     if (!string.IsNullOrEmpty(inputVendorCode) && 
                         !(inputVendorCode.Equals(existingVendor.VendorCode) &&
                         inputCompanyName.Equals(existingVendor.Company)))
                     {
-                        MessageBox.Show($"The provided vendor code '{ inputVendorCode }' or company name '{inputCompanyName}' belongs to another entry in the Vendor Master List. \nPlease enter a unique vendor code and company name, or use a previously saved company.",
+                        MessageBox.Show($"The provided vendor code '{ inputVendorCode }' or company name '{ inputCompanyName }' belongs to another entry in the Vendor Master List. " +
+                            Environment.NewLine + Environment.NewLine + $"Existing Vendor Code: '{ existingVendor.VendorCode }' and Company '{ existingVendor.Company }'." +
+                            Environment.NewLine + Environment.NewLine + "Please enter a unique vendor code and company name, or use a previously saved company.",
                             "Error",
                             MessageBoxButton.OK,
                             MessageBoxImage.Error);
                         
                         return;
                     }
-                }                
+                }
             }
             else
             {
