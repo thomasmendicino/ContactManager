@@ -1,0 +1,31 @@
+﻿using ContactManager.DTOs;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ContactManager.DbContexts
+{
+    public class SQLiteContactManagerDbContext : DbContext
+    {
+        public SQLiteContactManagerDbContext(DbContextOptions options) : base(options)
+        {
+
+        }
+        public DbSet<CustomerDTO> Customer { get; set; }
+        public DbSet<VendorDTO> Vendor { get; set; }
+        public DbSet<CompanyVendorDTO> VendorMasterList { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CompanyVendorDTO>(entity => {
+                entity.HasIndex(v => v.VendorCode).IsUnique();
+                entity.HasIndex(c => c.CompanyName).IsUnique();
+            });
+
+            base.OnModelCreating(modelBuilder);
+        }
+    }
+}
