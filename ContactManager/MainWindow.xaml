@@ -62,6 +62,9 @@
                     <DataTemplate DataType="{x:Type vms:AddVendorViewModel}">
                         <views:AddVendorView />
                     </DataTemplate>
+                    <DataTemplate DataType="{x:Type vms:VendorMasterListViewModel}">
+                        <views:VendorMasterListView />
+                    </DataTemplate>
                 </Grid.Resources>
 
                 <ContentControl Content="{Binding CurrentViewModel}" />
