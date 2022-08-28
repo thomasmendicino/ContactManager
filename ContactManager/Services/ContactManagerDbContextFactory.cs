@@ -1,4 +1,5 @@
 ﻿using ContactManager.DbContexts;
+using ContactManager.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContactManager.Services
@@ -6,6 +7,7 @@ namespace ContactManager.Services
     public class ContactManagerDbContextFactory
     {
         private readonly string _connectionString;
+        public DatabaseServer dbServer { get; set; }
 
         public ContactManagerDbContextFactory(string connectionString)
         {
@@ -14,11 +16,24 @@ namespace ContactManager.Services
 
         public ContactManagerDbContext CreateDbContext()
         {
-            DbContextOptions contextOptions = new DbContextOptionsBuilder().UseSqlServer().Options;
+            ContactManagerDbContext dbContext = null;
+            switch (dbServer)
+            {
+                case DatabaseServer.SqlServer:
+                    DbContextOptions contextOptions = new DbContextOptionsBuilder().UseSqlServer().Options;
 
-            ContactManagerDbContext dbContext = new ContactManagerDbContext(contextOptions);
+                    dbContext = new ContactManagerDbContext(contextOptions);
 
-            dbContext.Database.SetConnectionString(_connectionString);
+                    dbContext.Database.SetConnectionString(_connectionString);
+                    
+                    break;
+                case DatabaseServer.Sqlite:
+                    DbContextOptions dbContextOptions = new DbContextOptionsBuilder().UseSqlite(_connectionString).Options;
+
+                    dbContext = new SQLiteContactManagerDbContext(dbContextOptions);
+
+                    break;
+            }            
 
             return dbContext;
         }

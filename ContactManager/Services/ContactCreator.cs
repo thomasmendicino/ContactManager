@@ -60,7 +60,8 @@ namespace ContactManager.Services
                 Name = customer.Name,
                 Phone = customer.Phone,
                 Address = customer.Address,
-                Company = customer.Company
+                Company = customer.Company,
+                Notes = customer.Notes
             };
         }
 
