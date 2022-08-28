@@ -3,33 +3,38 @@ using System;
 using ContactManager.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ContactManager.SqliteMigrations
+namespace ContactManager.Migrations
 {
-    [DbContext(typeof(SQLiteContactManagerDbContext))]
-    partial class SQLiteContactManagerDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ContactManagerDbContext))]
+    partial class ContactManagerDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.8");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "6.0.8")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("ContactManager.DTOs.CompanyVendorDTO", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("VendorCode")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -44,31 +49,31 @@ namespace ContactManager.SqliteMigrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d56bdab0-bed0-4983-a80f-390a641a8376"),
+                            Id = new Guid("f2794e3b-7972-483f-88fa-54b1865e0776"),
                             CompanyName = "ACME Acids",
                             VendorCode = "A001"
                         },
                         new
                         {
-                            Id = new Guid("eb7619b2-11b4-4780-9a3f-dda3ab10f1ed"),
+                            Id = new Guid("13671055-baaa-420a-8341-c0e47a071bb6"),
                             CompanyName = "Berenstain Biology",
                             VendorCode = "A002"
                         },
                         new
                         {
-                            Id = new Guid("a11c0b31-5833-4df5-b57a-dbad990934d9"),
+                            Id = new Guid("0ab5eb65-958b-4b7c-9e7f-8b3657f4426a"),
                             CompanyName = "Flick’s Fluidics",
                             VendorCode = "A003"
                         },
                         new
                         {
-                            Id = new Guid("67e0b7da-0c37-47ea-bad4-d7654ca90205"),
+                            Id = new Guid("68242db4-6242-47be-94dd-b83ec163c0dc"),
                             CompanyName = "Radical Reagents",
                             VendorCode = "D004"
                         },
                         new
                         {
-                            Id = new Guid("7d64d5e9-c21a-4170-8509-c86c16390df9"),
+                            Id = new Guid("8c8dccc4-5e41-4012-b390-3b661524763f"),
                             CompanyName = "BBST Paper Products",
                             VendorCode = "G065"
                         });
@@ -78,23 +83,23 @@ namespace ContactManager.SqliteMigrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Company")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -103,7 +108,7 @@ namespace ContactManager.SqliteMigrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a8886244-3763-4a53-bcb1-12eb3220db51"),
+                            Id = new Guid("360f55f3-b7b8-4e4e-9535-1772e1047c9b"),
                             Address = "1 Amphitheater Parkway, Mountain View, CA",
                             Company = "Google",
                             Name = "Scottie Scheffler",
@@ -112,7 +117,7 @@ namespace ContactManager.SqliteMigrations
                         },
                         new
                         {
-                            Id = new Guid("62e66cb8-a6b9-4a97-92cf-8569fc7493a0"),
+                            Id = new Guid("0f243a4b-207c-4eb6-b4d5-53d5b1fddfad"),
                             Address = "3555 Farnam Street, Omaha, NE",
                             Company = "Berkshire Hathaway",
                             Name = "Warren Buffett",
@@ -121,7 +126,7 @@ namespace ContactManager.SqliteMigrations
                         },
                         new
                         {
-                            Id = new Guid("a8ed1a80-943c-4745-aa10-3d2b8561f2b9"),
+                            Id = new Guid("520778df-8a95-436c-b7d6-619735d10918"),
                             Address = "13101 Harold Green Road, Austin, Texas",
                             Company = "Tesla",
                             Name = "Elon Musk",
@@ -134,21 +139,21 @@ namespace ContactManager.SqliteMigrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Company")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -157,7 +162,7 @@ namespace ContactManager.SqliteMigrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ff1926fb-30f1-4d44-aea9-fa82d1e120cf"),
+                            Id = new Guid("a0420642-1599-46a3-9c52-6b6215346972"),
                             Address = "111 A Street, Benicia, CA",
                             Company = "Radical Reagents",
                             Name = "George W. Salesman",
@@ -165,7 +170,7 @@ namespace ContactManager.SqliteMigrations
                         },
                         new
                         {
-                            Id = new Guid("a8864005-ce08-4983-b3c4-4b16d132a5ae"),
+                            Id = new Guid("cc0f7096-1635-47e1-8c29-74196c5bd6bd"),
                             Address = "222 B Street, Benicia, CA",
                             Company = "Berenstain Biology",
                             Name = "Stephanie Saleswoman",
@@ -173,7 +178,7 @@ namespace ContactManager.SqliteMigrations
                         },
                         new
                         {
-                            Id = new Guid("3c07c8ff-ebb3-454d-b86d-d6b7a98b599c"),
+                            Id = new Guid("b32e3a41-6dca-4730-9449-55784dcd72dc"),
                             Address = "333 C Street, Benicia, CA",
                             Company = "ACME Acids",
                             Name = "Jane Doe",

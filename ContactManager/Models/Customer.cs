@@ -16,14 +16,5 @@ namespace ContactManager.Models
 			set { _notes = value; }
 		}
 
-		private string? _company;
-
-		public string? Company
-		{
-			get { return _company; }
-			set { _company = value; }
-		}
-
-
 	}
 }
