@@ -14,7 +14,7 @@ namespace ContactManager.Services
             _connectionString = connectionString;
         }
 
-        public ContactManagerDbContext CreateDbContext()
+        public virtual ContactManagerDbContext CreateDbContext()
         {
             ContactManagerDbContext dbContext = null;
             switch (dbServer)
