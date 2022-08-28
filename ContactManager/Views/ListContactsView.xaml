@@ -103,7 +103,7 @@
                     <GridViewColumn Header="Name">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Padding="0 0 20 0" Text="{Binding Name}"/>
+                                <TextBlock HorizontalAlignment="Left" Padding="0 0 20 0" Text="{Binding Name}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -111,7 +111,7 @@
                     <GridViewColumn Header="Phone">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0 0 20 0" Text="{Binding Phone}"/>
+                                <TextBlock HorizontalAlignment="Left" Padding="0 0 20 0" Text="{Binding Phone}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -119,7 +119,7 @@
                     <GridViewColumn Header="Address">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0 0 20 0" Text="{Binding Address}"/>
+                                <TextBlock HorizontalAlignment="Left" Padding="0 0 20 0" Text="{Binding Address}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -127,15 +127,21 @@
                     <GridViewColumn Header="Company">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0 0 20 0" Text="{Binding Company}"/>
+                                <TextBlock HorizontalAlignment="Left" Padding="0 0 20 0" Text="{Binding Company}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Notes">
+                    <GridViewColumn Header="Notes" >
+                        <GridViewColumn.HeaderContainerStyle>
+                            <Style TargetType="{x:Type GridViewColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                <Setter Property="Margin" Value="5 0 0 0" />
+                            </Style>
+                        </GridViewColumn.HeaderContainerStyle>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0 0 20 0" Text="{Binding Notes}"/>
+                                <TextBlock HorizontalAlignment="Left" Padding="0 0 20 0" Text="{Binding Notes}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
