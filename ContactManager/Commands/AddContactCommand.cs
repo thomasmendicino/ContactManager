@@ -50,6 +50,15 @@ namespace ContactManager.Commands
             Contact newContact;
             if (_addVendorViewModel != null)
             {
+                if (!ValidateVendorInput(_addVendorViewModel))
+                {
+                    MessageBox.Show($"The provided vendor was invalid. Please enter a Name and Company at minimum.",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+
+                    return;
+                }
                 newContact = MapVendor(_addVendorViewModel);
                 string inputVendorCode = _addVendorViewModel.VendorCode;
                 string inputCompanyName = _addVendorViewModel.Company;
@@ -81,6 +90,15 @@ namespace ContactManager.Commands
             }
             else
             {
+                if (!ValidateCustomerInput(_addCustomerViewModel))
+                {
+                    MessageBox.Show($"The provided customer was invalid. Please enter a Name and Company at minimum.",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+
+                    return;
+                }
                 newContact = MapCustomer(_addCustomerViewModel);
             }
 
@@ -104,6 +122,16 @@ namespace ContactManager.Commands
                 
                 MessageBox.Show(string.Concat("Error saving contact: ",e.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private bool ValidateCustomerInput(AddCustomerViewModel? addCustomerViewModel)
+        {
+            return addCustomerViewModel != null && !string.IsNullOrWhiteSpace(addCustomerViewModel.Name) && !string.IsNullOrWhiteSpace(addCustomerViewModel.Company);
+        }
+
+        private bool ValidateVendorInput(AddVendorViewModel addVendorViewModel)
+        {
+            return addVendorViewModel != null && !string.IsNullOrWhiteSpace(addVendorViewModel.Name) && !string.IsNullOrWhiteSpace(addVendorViewModel.Company);
         }
 
         private bool ValidVendorCode(string inputCompanyName, string inputVendorCode)
