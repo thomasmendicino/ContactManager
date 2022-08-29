@@ -2,15 +2,10 @@
 using ContactManager.Stores;
 using ContactManager.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Navigation;
 
 namespace ContactManager.Commands
 {
@@ -45,6 +40,11 @@ namespace ContactManager.Commands
             return base.CanExecute(parameter);
         }
 
+        /// <summary>
+        /// Saves a new contact to the database as a command.
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
         public async override Task ExecuteAsync(object? parameter)
         {
             Contact newContact;
@@ -63,30 +63,38 @@ namespace ContactManager.Commands
                 string inputVendorCode = _addVendorViewModel.VendorCode;
                 string inputCompanyName = _addVendorViewModel.Company;
 
-                Vendor existingVendor = await _contactList.GetVendorFromMasterList((Vendor)newContact);
-                
-                if (existingVendor == null && ValidVendorCode(inputCompanyName, inputVendorCode))
+                // Cases:
+                // 1. Vendor code was not supplied => do not save anything to master list.
+                // 2. Company name/Vendor code search returned nothing => save vendor to master list
+                // 3. Company name/Vendor code search returned an entry that matches both the supplied vendor code and company name => skip saving; already exists.
+                // 4. Company name/Vendor code search returned an entry and one of the properties doesn't match the supplied value => Return Error box indicating why company
+                //     will not be saved to master list.
+                if (ValidVendorCode(inputVendorCode))
                 {
-                    _saveVendorCode = true;                    
-                }
-                else
-                {
-                    // a non-empty vendor code was provided.
-                    // AND either VendorCode or CompanyName doesn't match the record that was found.
-                    if (!string.IsNullOrEmpty(inputVendorCode) && 
-                        !(inputVendorCode.Equals(existingVendor.VendorCode) &&
-                        inputCompanyName.Equals(existingVendor.Company)))
+                    Vendor existingVendor = await _contactList.GetVendorFromMasterList((Vendor)newContact);
+
+                    if (existingVendor == null)
                     {
-                        MessageBox.Show($"The provided vendor code '{ inputVendorCode }' or company name '{ inputCompanyName }' belongs to another entry in the Vendor Master List. " +
-                            Environment.NewLine + Environment.NewLine + $"Existing Vendor Code: '{ existingVendor.VendorCode }' and Company '{ existingVendor.Company }'." +
-                            Environment.NewLine + Environment.NewLine + "Please enter a unique vendor code and company name, or use a previously saved company.",
-                            "Error",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Error);
-                        
-                        return;
+                        _saveVendorCode = true;
                     }
-                }
+                    else
+                    {
+                        // a non-empty vendor code was provided.
+                        // AND either VendorCode or CompanyName doesn't match the record that was found.
+                        if (!(inputVendorCode.Equals(existingVendor.VendorCode) &&
+                            inputCompanyName.Equals(existingVendor.Company)))
+                        {
+                            MessageBox.Show($"The provided vendor code '{inputVendorCode}' or company name '{inputCompanyName}' belongs to another entry in the Vendor Master List. " +
+                                Environment.NewLine + Environment.NewLine + $"Existing Vendor Code: '{existingVendor.VendorCode}' and Company '{existingVendor.Company}'." +
+                                Environment.NewLine + Environment.NewLine + "Please enter a unique vendor code and company name, or use a previously saved company.",
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+
+                            return;
+                        }
+                    }
+                }                
             }
             else
             {
@@ -134,9 +142,9 @@ namespace ContactManager.Commands
             return addVendorViewModel != null && !string.IsNullOrWhiteSpace(addVendorViewModel.Name) && !string.IsNullOrWhiteSpace(addVendorViewModel.Company);
         }
 
-        private bool ValidVendorCode(string inputCompanyName, string inputVendorCode)
+        private bool ValidVendorCode(string inputVendorCode)
         {
-            return !string.IsNullOrEmpty(inputCompanyName) && !string.IsNullOrEmpty(inputVendorCode);
+            return !string.IsNullOrEmpty(inputVendorCode);
         }
 
         private Contact MapCustomer(AddCustomerViewModel addCustomerViewModel)

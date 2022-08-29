@@ -45,14 +45,11 @@ namespace ContactManager.ViewModels
             set { _notes = value; }
         }
 
-        private readonly NavigationStore _navigationStore;
         public ICommand? SaveCustomer { get; }
         public ICommand? Cancel { get; }
 
         public AddCustomerViewModel(ContactList contactList, NavigationStore navigationStore, Func<ListContactsViewModel> listContactsViewModel)
         {
-            _navigationStore = navigationStore;
-
             SaveCustomer = new AddContactCommand(contactList, navigationStore, listContactsViewModel, this, null);
             Cancel = new NavigateCommand(navigationStore, listContactsViewModel);
         }

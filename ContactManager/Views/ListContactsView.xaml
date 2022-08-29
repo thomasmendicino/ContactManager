@@ -29,20 +29,20 @@
 
             <TextBlock FontSize="24" Text="All Contacts" HorizontalAlignment="Center"/>
         </Grid>
-        <Button Grid.Row="0" Grid.Column="1" Command="{Binding AddCustomer}" Content="Add Customer" Width="150"  Margin="5" HorizontalAlignment="Right"/>
-        <Button Grid.Row="0" Grid.Column="2" Command="{Binding AddVendor}" Content="Add Vendor" Width="150" Margin="5" HorizontalAlignment="Right"/>
+        <Button Grid.Row="0" Grid.Column="1" BorderBrush="ForestGreen" Background="LightGreen" FontWeight="Medium" Command="{Binding AddCustomer}" Content="Add Customer" Width="150"  Margin="5" HorizontalAlignment="Right"/>
+        <Button Grid.Row="0" Grid.Column="2" BorderBrush="DodgerBlue" Background="LightCyan" FontWeight="Medium" Command="{Binding AddVendor}" Content="Add Vendor" Width="150" Margin="5" HorizontalAlignment="Right"/>
 
         <ListView Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding Contacts}" > 
 
             <ListView.Resources>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ContactType}" Value="ContactManager.Models.Vendor">
+                        <DataTrigger Binding="{Binding ContactType}" Value="Vendor">
                             <Setter Property="BorderBrush" Value="DodgerBlue" />
                             <Setter Property="Background" Value="LightCyan" />
                             <Setter Property="FontWeight" Value="Medium" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ContactType}" Value="ContactManager.Models.Customer">
+                        <DataTrigger Binding="{Binding ContactType}" Value="Customer">
                             <Setter Property="BorderBrush" Value="ForestGreen" />
                             <Setter Property="Background" Value="LightGreen" />
                             <Setter Property="FontWeight" Value="Medium" />
@@ -105,7 +105,13 @@
             
 
         </ListView>
-        
-        <Button Grid.Row="2" Grid.Column="0" Command="{Binding MasterVendorList}" Content="Vendor Master List" Width="150" Margin="5" HorizontalAlignment="Left"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+            <Button  Command="{Binding MasterVendorList}" Content="Vendor Master List" Width="150" Margin="5" HorizontalAlignment="Left"/>
+            <TextBox BorderThickness="0" Height ="20" Margin="10 0 10 0">Key:</TextBox>
+            <TextBox BorderThickness="0" Height="20" BorderBrush="ForestGreen" Background="LightGreen" FontWeight="Medium" Margin="10 0 10 0">Customers</TextBox>
+            <TextBox BorderThickness="0" Height="20" BorderBrush="DodgerBlue" Background="LightCyan" FontWeight="Medium" Margin="10 0 10 0">Vendors</TextBox>
+        </StackPanel>
+
     </Grid>
 </UserControl>
