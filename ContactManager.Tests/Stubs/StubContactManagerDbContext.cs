@@ -1,4 +1,4 @@
-﻿/*using ContactManager.DbContexts;
+﻿using ContactManager.DbContexts;
 using ContactManager.DTOs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace ContactManager.Tests.Stubs
 {
-    internal class StubContactManagerDbContext : ContactManagerDbContext
+    public class StubContactManagerDbContext : ContactManagerDbContext
     {
         List<object> addedEntry = new List<object>();
-        internal DbSet<CustomerDTO> Customer { get; set; }
-        internal DbSet<VendorDTO> Vendor { get; set; }
-        internal DbSet<CompanyVendorDTO> VendorMasterList { get; set; }
+        public override DbSet<CustomerDTO> Customer { get; set; }
+        public override DbSet<VendorDTO> Vendor { get; set; }
+        public override DbSet<CompanyVendorDTO> VendorMasterList { get; set; }
         internal StubContactManagerDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -25,9 +25,36 @@ namespace ContactManager.Tests.Stubs
         {
             addedEntry.Add(entity);
 
+            OnEntryAdded();
+
             return base.Add(entity);
         }
 
+        public override EntityEntry<TEntity> Add<TEntity>(TEntity entity)
+        {
+            addedEntry.Add(entity);
+
+            OnEntryAdded();
+
+            return base.Add(entity);
+        }
+
+        public override ValueTask<EntityEntry> AddAsync(object entity, CancellationToken cancellationToken = default)
+        {
+            return base.AddAsync(entity, cancellationToken);
+        }
+
+        public override ValueTask<EntityEntry<TEntity>> AddAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default)
+        {
+            return base.AddAsync(entity, cancellationToken);
+        }
+
+        private void OnEntryAdded()
+        {
+            EntryAdded?.Invoke();
+        }
+
+        public event Action EntryAdded;
+
     }
 }
-*/

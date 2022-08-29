@@ -1,6 +1,7 @@
 ﻿using ContactManager.DbContexts;
 using ContactManager.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,7 +13,9 @@ namespace ContactManager.Tests.Stubs
 {
     public class StubContactManagerDbContextFactory : ContactManagerDbContextFactory
     {
-        public ContactManagerDbContext dbContext { get; set; }
+        public StubContactManagerDbContext dbContext { get; set; }
+        public DatabaseFacade _database { get; set; }
+        public List<object> entryAdded;
         public StubContactManagerDbContextFactory(string connectionString) : base(connectionString)
         {
             
@@ -22,9 +25,24 @@ namespace ContactManager.Tests.Stubs
             
             var options = new DbContextOptionsBuilder<ContactManagerDbContext>().UseInMemoryDatabase(databaseName: "AutomatedTestingDatabase").Options;
 
-            dbContext = new ContactManagerDbContext(options);
+            dbContext = new StubContactManagerDbContext(options);
+
+            //dbContext.Database.Migrate();
+
+            dbContext.EntryAdded += DbContext_EntryAdded;
 
             return dbContext;
+        }
+
+        private void DbContext_EntryAdded()
+        {
+            entryAdded.Add(dbContext.Database);
+            _database = dbContext.Database;
+        }
+
+        public void OnEntryAdded()
+        {
+
         }
     }
 }

@@ -14,9 +14,9 @@ namespace ContactManager.DbContexts
         {
 
         }
-        public DbSet<CustomerDTO> Customer { get; set; }
-        public DbSet<VendorDTO> Vendor { get; set; }
-        public DbSet<CompanyVendorDTO> VendorMasterList { get; set; }
+        public virtual DbSet<CustomerDTO> Customer { get; set; }
+        public virtual DbSet<VendorDTO> Vendor { get; set; }
+        public virtual DbSet<CompanyVendorDTO> VendorMasterList { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
