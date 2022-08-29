@@ -12,11 +12,6 @@ namespace ContactManager.DbContexts
 
             return new ContactManagerDbContext(options);
             
-            /*
-            DbContextOptions dbContextOptions = new DbContextOptionsBuilder().UseSqlite("Data Source=contactManager.db").Options;
-
-            return new ContactManagerDbContext(dbContextOptions);
-            */
         }
     }
 }

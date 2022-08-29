@@ -1,8 +1,7 @@
-﻿using ContactManager.DbContexts;
-using ContactManager.Enums;
+﻿using ContactManager.Enums;
 using Microsoft.EntityFrameworkCore;
 
-namespace ContactManager.Services
+namespace ContactManager.DbContexts
 {
     public class ContactManagerDbContextFactory
     {

@@ -2,12 +2,7 @@
 using ContactManager.Models;
 using ContactManager.Stores;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Windows.Navigation;
 
 namespace ContactManager.ViewModels
 {

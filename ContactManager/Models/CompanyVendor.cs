@@ -26,8 +26,7 @@ namespace ContactManager.Models
 		}
 
 		private readonly IContactRepository _contactRepo;
-        // parameterless ctor to only use this class for its properties
-		//public CompanyVendor() {}
+        
         public CompanyVendor(IContactRepository contactRepo)
 		{
 			_contactRepo = contactRepo;
