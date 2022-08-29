@@ -21,7 +21,6 @@ namespace ContactManager.Commands
         private readonly ContactList _contactList;
         private readonly NavigationStore _navigationStore;
         private readonly Func<ViewModelBase> _createViewModel;
-        private bool _duplicateCompany = true;
         private bool _saveVendorCode;
 
         public AddContactCommand(ContactList contactList, NavigationStore navigationStore, Func<ListContactsViewModel> createListContactsViewModel,
@@ -43,8 +42,7 @@ namespace ContactManager.Commands
         }
         public override bool CanExecute(object? parameter)
         {
-            return //!_duplicateCompany && !string.IsNullOrEmpty(_addVendorViewModel?.Company) &&
-                base.CanExecute(parameter);
+            return base.CanExecute(parameter);
         }
 
         public async override Task ExecuteAsync(object? parameter)

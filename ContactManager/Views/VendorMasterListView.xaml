@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ContactManager.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid >
 
         <Grid.RowDefinitions>
             <RowDefinition Height="10" />
@@ -14,17 +14,20 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="10" />            
         </Grid.RowDefinitions>
-        
-        <ListView Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding VendorList}">
+        <Grid.Resources>
+            <Style TargetType="ListViewItem">
+                <Style.Triggers>
+                    <Trigger Property="ItemsControl.AlternationIndex"  Value="0">
+                        <Setter Property="Background" Value="White" />
+                    </Trigger>
+                    <Trigger Property="ItemsControl.AlternationIndex"  Value="1">
+                        <Setter Property="Background" Value="LightGray" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
 
-            <!-- <ListItem /> -->
-
-            <!-- <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                </Style>
-            </ListView.ItemContainerStyle> -->
-
+        <ListView Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding VendorList}" AlternationCount="2" >
             <ListView.View>
                 <GridView>
 

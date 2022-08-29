@@ -1,4 +1,4 @@
-﻿using ContactManager.ViewModels;
+﻿/*using ContactManager.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +23,12 @@ namespace ContactManager.Views
                 {
                     return element.FindResource("customerTemplate") as DataTemplate;
                 }
-                /*if (taskitem.Priority == 1)
+                *//*if (taskitem.Priority == 1)
                     return
-                        element.FindResource("importantTaskTemplate") as DataTemplate;*/
+                        element.FindResource("importantTaskTemplate") as DataTemplate;*//*
                 else
                 {
-                    return element.FindResource("vendorTemplate") as DataTemplate;
+                    return element.FindResource("vendorBorder") as DataTemplate;
                 }
             }
 
@@ -36,3 +36,4 @@ namespace ContactManager.Views
         }
     }
 }
+*/
