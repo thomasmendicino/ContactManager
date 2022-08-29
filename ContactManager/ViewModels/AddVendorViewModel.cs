@@ -43,14 +43,11 @@ namespace ContactManager.ViewModels
             get { return _vendorCode; }
             set { _vendorCode = value; }
         }
-        private readonly NavigationStore _navigationStore;
         public ICommand SaveVendor { get; }
         public ICommand Cancel { get; }
 
         public AddVendorViewModel(ContactList contactList, NavigationStore navigationStore, Func<ListContactsViewModel> listContactsViewModel)
         {
-            _navigationStore = navigationStore;
-
             SaveVendor = new AddContactCommand(contactList, navigationStore, listContactsViewModel, null, this);
             Cancel = new NavigateCommand(navigationStore, listContactsViewModel);
         }
