@@ -1,4 +1,5 @@
 ﻿using ContactManager.Models;
+using ContactManager.Views;
 
 
 namespace ContactManager.ViewModels
@@ -15,17 +16,25 @@ namespace ContactManager.ViewModels
         public string Company => _contact.Company;
         public string VendorCode => _vendor?.VendorCode ?? "";
         public string Notes => _customer?.Notes ?? "";
-        public string ContactType { get; set; }
+        public ContactType ContactType { get; set; }
 
 
         public ContactViewModel(Contact contact)
         {
             _contact = contact;
-            ContactType = contact.GetType().ToString();
+            
             if (contact is Customer)
+            {
                 _customer = (Customer)contact;
+                ContactType = ContactType.Customer;
+            }
+                
             else if (contact is Vendor)
+            {
                 _vendor = (Vendor)contact;
+                ContactType = ContactType.Vendor;
+            }
+                
         }
     }
 }

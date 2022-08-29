@@ -37,12 +37,12 @@
             <ListView.Resources>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ContactType}" Value="ContactManager.Models.Vendor">
+                        <DataTrigger Binding="{Binding ContactType}" Value="Vendor">
                             <Setter Property="BorderBrush" Value="DodgerBlue" />
                             <Setter Property="Background" Value="LightCyan" />
                             <Setter Property="FontWeight" Value="Medium" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding ContactType}" Value="ContactManager.Models.Customer">
+                        <DataTrigger Binding="{Binding ContactType}" Value="Customer">
                             <Setter Property="BorderBrush" Value="ForestGreen" />
                             <Setter Property="Background" Value="LightGreen" />
                             <Setter Property="FontWeight" Value="Medium" />
