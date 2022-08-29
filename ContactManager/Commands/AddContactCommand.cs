@@ -21,7 +21,6 @@ namespace ContactManager.Commands
         private readonly ContactList _contactList;
         private readonly NavigationStore _navigationStore;
         private readonly Func<ViewModelBase> _createViewModel;
-        private bool _duplicateCompany = true;
         private bool _saveVendorCode;
 
         public AddContactCommand(ContactList contactList, NavigationStore navigationStore, Func<ListContactsViewModel> createListContactsViewModel,
@@ -43,8 +42,7 @@ namespace ContactManager.Commands
         }
         public override bool CanExecute(object? parameter)
         {
-            return //!_duplicateCompany && !string.IsNullOrEmpty(_addVendorViewModel?.Company) &&
-                base.CanExecute(parameter);
+            return base.CanExecute(parameter);
         }
 
         public async override Task ExecuteAsync(object? parameter)
@@ -52,6 +50,15 @@ namespace ContactManager.Commands
             Contact newContact;
             if (_addVendorViewModel != null)
             {
+                if (!ValidateVendorInput(_addVendorViewModel))
+                {
+                    MessageBox.Show($"The provided vendor was invalid. Please enter a Name and Company at minimum.",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+
+                    return;
+                }
                 newContact = MapVendor(_addVendorViewModel);
                 string inputVendorCode = _addVendorViewModel.VendorCode;
                 string inputCompanyName = _addVendorViewModel.Company;
@@ -83,6 +90,15 @@ namespace ContactManager.Commands
             }
             else
             {
+                if (!ValidateCustomerInput(_addCustomerViewModel))
+                {
+                    MessageBox.Show($"The provided customer was invalid. Please enter a Name and Company at minimum.",
+                            "Error",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+
+                    return;
+                }
                 newContact = MapCustomer(_addCustomerViewModel);
             }
 
@@ -106,6 +122,16 @@ namespace ContactManager.Commands
                 
                 MessageBox.Show(string.Concat("Error saving contact: ",e.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private bool ValidateCustomerInput(AddCustomerViewModel? addCustomerViewModel)
+        {
+            return addCustomerViewModel != null && !string.IsNullOrWhiteSpace(addCustomerViewModel.Name) && !string.IsNullOrWhiteSpace(addCustomerViewModel.Company);
+        }
+
+        private bool ValidateVendorInput(AddVendorViewModel addVendorViewModel)
+        {
+            return addVendorViewModel != null && !string.IsNullOrWhiteSpace(addVendorViewModel.Name) && !string.IsNullOrWhiteSpace(addVendorViewModel.Company);
         }
 
         private bool ValidVendorCode(string inputCompanyName, string inputVendorCode)

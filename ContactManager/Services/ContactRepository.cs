@@ -26,14 +26,14 @@ namespace ContactManager.Services
                 IEnumerable<CustomerDTO> customerDTOs = await dbContext.Customer.ToListAsync();
                 IEnumerable<VendorDTO> vendorDTOs = await dbContext.Vendor.ToListAsync();
                 
-                IEnumerable<Contact> contacts = null;
+                IEnumerable<Contact> customers = null;
                 IEnumerable<Contact> vendors = null;
                 if (customerDTOs != null)
-                    contacts = customerDTOs.Select(c => MapCustomerDTO(c));
+                    customers = customerDTOs.Select(c => MapCustomerDTO(c));
                 if (vendorDTOs != null)
                     vendors = vendorDTOs.Select(v => MapVendorDTO(v));
 
-                return CombineContacts(vendors, contacts);
+                return CombineContacts(vendors, customers);
             }
         }
 

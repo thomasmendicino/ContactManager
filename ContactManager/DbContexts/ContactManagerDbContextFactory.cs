@@ -1,8 +1,7 @@
-﻿using ContactManager.DbContexts;
-using ContactManager.Enums;
+﻿using ContactManager.Enums;
 using Microsoft.EntityFrameworkCore;
 
-namespace ContactManager.Services
+namespace ContactManager.DbContexts
 {
     public class ContactManagerDbContextFactory
     {
@@ -14,7 +13,7 @@ namespace ContactManager.Services
             _connectionString = connectionString;
         }
 
-        public ContactManagerDbContext CreateDbContext()
+        public virtual ContactManagerDbContext CreateDbContext()
         {
             ContactManagerDbContext dbContext = null;
             switch (dbServer)

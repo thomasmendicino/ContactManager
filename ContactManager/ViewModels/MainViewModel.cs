@@ -1,12 +1,4 @@
-using ContactManager.Models;
 using ContactManager.Stores;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ContactManager.ViewModels
 {

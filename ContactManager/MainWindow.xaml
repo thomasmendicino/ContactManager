@@ -24,32 +24,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="15" />
         </Grid.ColumnDefinitions>
-
-        <!-- <Label Grid.Column="0">Names</Label>
-        <ListBox Grid.Row="1" x:Name="lstNames" />
-
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="5,0,0,0">
-            <TextBox x:Name="txtName" />
-            <Button x:Name="btnAdd" Margin="0,5,0,0" Click="ButtonAddName_Click">Add Name</Button>
-        </StackPanel> -->
-        <!-- <StackPanel>
-            <TextBlock FontFamily="Verdana" FontSize="11"
-               Margin="5,15,0,10" FontWeight="Bold">My Contacts:</TextBlock>
-            <ListBox Width="200" IsSynchronizedWithCurrentItem="True"
-             ItemsSource="{Binding Source={StaticResource MyContacts}}"/>
-            <TextBlock FontFamily="Verdana" FontSize="11"
-               Margin="5,15,0,5" FontWeight="Bold">Information:</TextBlock>
-            <ContentControl Content="{Binding Source={StaticResource MyContacts}}"
-                    ContentTemplate="{StaticResource DetailTemplate}"/>
-        </StackPanel>
-        <StackPanel Grid.Column="1">
-            <TextBlock>Name</TextBlock>
-            <TextBox x:Name="nameEntry"></TextBox>
-            <TextBlock>Address</TextBlock>
-            <TextBox x:Name="addrEntry"></TextBox>
-            <Button Content="Click Me" Command="{Binding AddContact}"></Button>
-            <Button Content="Save" Command="{Binding Save}" CommandParameter="{x:Reference Name=nameEntry}"></Button>
-        </StackPanel> -->
+        
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="4">
             <Grid Margin="20 10">
                 <Grid.Resources>
@@ -70,7 +45,6 @@
                 <ContentControl Content="{Binding CurrentViewModel}" />
             </Grid>
         </ScrollViewer>    
-        <!--<views:ManageContactsView Grid.ColumnSpan="3" DataContext="{Binding CurrentViewModel}"/> -->
 
         <TextBlock Name="Clock" d:Text="08/22/2022 8:48:00 PM" Grid.Row="2" Grid.Column="2" FontSize="12" />
 

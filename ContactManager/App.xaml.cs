@@ -31,9 +31,17 @@ namespace ContactManager
         {
             IConfigurationBuilder builder = new ConfigurationBuilder();//.SetBasePath() //.AddJsonFile.Add()("appsettings.json", false, true);
             _configuration = builder.AddJsonFile("appsettings.json", false, true).Build();
+            /*
+             "DatabaseProvider": "Sqlite",
+  "DatabaseServer": "contactManager.db",
+  "Username": "",
+  "Password": ""
+             
+             
+             */
 
             //_dbProvider = _configuration["DatabaseProvider"];
-            
+
             if (!Enum.TryParse(_configuration["DatabaseProvider"], out _dbProvider)) {
                 _dbProvider = DatabaseServer.Sqlite;
             }

@@ -1,10 +1,6 @@
 ﻿using ContactManager.DbContexts;
 using ContactManager.DTOs;
 using ContactManager.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ContactManager.Services
@@ -42,7 +38,7 @@ namespace ContactManager.Services
             }
         }
 
-        private VendorDTO MapVendor(Vendor vendor)
+        public VendorDTO MapVendor(Vendor vendor)
         {
             return new VendorDTO
             {
@@ -53,7 +49,7 @@ namespace ContactManager.Services
             };
         }
 
-        private CustomerDTO MapCustomer(Customer customer)
+        public CustomerDTO MapCustomer(Customer customer)
         {
             return new CustomerDTO
             {
@@ -77,7 +73,7 @@ namespace ContactManager.Services
             }
         }
 
-        private CompanyVendorDTO MapCompanyVendor(Vendor vendor)
+        public CompanyVendorDTO MapCompanyVendor(Vendor vendor)
         {
             return new CompanyVendorDTO
             {

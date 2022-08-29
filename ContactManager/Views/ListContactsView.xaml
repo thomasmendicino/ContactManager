@@ -6,68 +6,13 @@
              xmlns:local="clr-namespace:ContactManager.Views"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-
-    
-    <Control.Resources>
-        <local:ContactDataTemplateSelector x:Key="dataTemplateSelector"/>
-
-        <DataTemplate x:Key="CustomerTemplate">
-            <DataTemplate.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="FontSize" Value="20"/>
-                </Style>
-            </DataTemplate.Resources>
-            <Border Name="border" BorderBrush="Red" BorderThickness="1"
-              Padding="5" Margin="5">
-                <DockPanel HorizontalAlignment="Center">
-                    <TextBlock Text="{Binding Path=Name}" />
-                    <TextBlock>?</TextBlock>
-                </DockPanel>
-            </Border>
-        </DataTemplate>
-
-        <DataTemplate x:Key="VendorTemplate">
-            <DataTemplate.Resources>
-                <Style TargetType="TextBlock">
-                    <Setter Property="FontSize" Value="20"/>
-                </Style>
-            </DataTemplate.Resources>
-            <Border Name="border" BorderBrush="Red" BorderThickness="1"
-              Padding="5" Margin="5">
-                <DockPanel HorizontalAlignment="Center">
-                    <TextBlock Text="{Binding Path=Name}" />
-                    <TextBlock>!</TextBlock>
-                </DockPanel>
-            </Border>
-
-        </DataTemplate>
-
-        <DataTemplate x:Key="customerTemplate">
-            <StackPanel>
-                <TextBlock Text="{Binding Path=Name}" />
-                <TextBlock Text="{Binding Path=Phone}"/>
-                <TextBlock Text="{Binding Path=Address}"/>
-            </StackPanel>
-        </DataTemplate>
-
-        <DataTemplate x:Key="vendorTemplate">
-            <StackPanel>
-                <TextBlock Text="{Binding Path=Address}"/>
-                <TextBlock Text="{Binding Path=Name}" />
-                <TextBlock Text="{Binding Path=Phone}"/>
-            </StackPanel>
-        </DataTemplate>
-
-    </Control.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
-            <RowDefinition Height="Auto" />
-            <!--<RowDefinition Height="*" />-->
+            <RowDefinition Height="280" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -80,38 +25,47 @@
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <!--<RowDefinition Height="Auto"/>-->
             </Grid.RowDefinitions>
 
             <TextBlock FontSize="24" Text="All Contacts" HorizontalAlignment="Center"/>
         </Grid>
         <Button Grid.Row="0" Grid.Column="1" Command="{Binding AddCustomer}" Content="Add Customer" Width="150"  Margin="5" HorizontalAlignment="Right"/>
         <Button Grid.Row="0" Grid.Column="2" Command="{Binding AddVendor}" Content="Add Vendor" Width="150" Margin="5" HorizontalAlignment="Right"/>
-        <ListView Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" ItemsSource="{Binding Contacts}">
-            
-            <!-- <ListItem /> -->
-            
-            <!-- <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+
+        <ListView Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding Contacts}" > 
+
+            <ListView.Resources>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ContactType}" Value="ContactManager.Models.Vendor">
+                            <Setter Property="BorderBrush" Value="DodgerBlue" />
+                            <Setter Property="Background" Value="LightCyan" />
+                            <Setter Property="FontWeight" Value="Medium" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ContactType}" Value="ContactManager.Models.Customer">
+                            <Setter Property="BorderBrush" Value="ForestGreen" />
+                            <Setter Property="Background" Value="LightGreen" />
+                            <Setter Property="FontWeight" Value="Medium" />
+                        </DataTrigger>
+                    </Style.Triggers>
                 </Style>
-            </ListView.ItemContainerStyle> -->
-            
-            <ListView.View>
+            </ListView.Resources>
+         <ListView.View>
+                
                 <GridView>
-                    
+
                     <GridViewColumn Header="Name">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Padding="0 0 20 0" Text="{Binding Name}"/>
-                            </DataTemplate>
+                                <TextBlock HorizontalAlignment="Left" Padding="0 0 20 0" Text="{Binding Name}"/>
+                            </DataTemplate>                            
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
                     <GridViewColumn Header="Phone">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0 0 20 0" Text="{Binding Phone}"/>
+                                <TextBlock HorizontalAlignment="Left" Padding="0 0 20 0" Text="{Binding Phone}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -119,7 +73,7 @@
                     <GridViewColumn Header="Address">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0 0 20 0" Text="{Binding Address}"/>
+                                <TextBlock HorizontalAlignment="Left" Padding="0 0 20 0" Text="{Binding Address}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -127,75 +81,31 @@
                     <GridViewColumn Header="Company">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0 0 20 0" Text="{Binding Company}"/>
+                                <TextBlock HorizontalAlignment="Left" Padding="0 0 20 0" Text="{Binding Company}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Notes">
+                    <GridViewColumn Header="Notes" >
+                        <GridViewColumn.HeaderContainerStyle>
+                            <Style TargetType="{x:Type GridViewColumnHeader}">
+                                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                <Setter Property="Margin" Value="5 0 0 0" />
+                            </Style>
+                        </GridViewColumn.HeaderContainerStyle>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0 0 20 0" Text="{Binding Notes}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-
-                    <GridViewColumn Header="Contact Type">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Padding="0 0 20 0" Text="{Binding ContactType}"/>
+                                <TextBlock HorizontalAlignment="Left" Padding="0 0 20 0" Text="{Binding Notes}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
                 </GridView> 
             </ListView.View>
+            
 
         </ListView>
-
-        <!--<TextBlock Text="Add Contact" Grid.Row="0" Grid.Column="1" FontSize="24" HorizontalAlignment="Center"></TextBlock>
-
-        <Grid Grid.Row="1" Grid.Column="1" Margin="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>-->
-
-            <!-- <StackPanel>
-                <StackPanel Orientation="Horizontal" >
-                    <RadioButton Name="ct_vendor" Command="{Binding AddContact}" Grid.Row="0" Grid.Column="0" Margin="40 20 10 0" >Vendor</RadioButton>
-                    <RadioButton Name="ct_customer" Command="{Binding AddContact}" Grid.Row="0" Grid.Column="1" Margin="10 20 10 0">Customer</RadioButton>
-                </StackPanel>
-                <TextBlock Grid.Row="1" Text="Name" Margin="10 10 0 0" />
-                <TextBox Grid.Row="2" Text="{Binding Name}" Margin="10 2 0 0" Grid.ColumnSpan="2" TextWrapping="Wrap"/>
-                <TextBlock Grid.Row="3" Text="Phone Number" Margin="10 5 0 0" />
-                <TextBox Grid.Row="4" Text="{Binding Phone}" Margin="10 2 0 0" TextWrapping="Wrap"/>
-                <TextBlock Grid.Row="5" Text="Address" Margin="10" />
-                <TextBox Grid.Row="6" Text="{Binding Address}" Margin="10 5 0 0" TextWrapping="Wrap" MaxLines="4"/>
-                <TextBlock Grid.Row="7" Text="Notes" Margin="10"  />
-                <TextBox Grid.Row="8" Text="{Binding Notes}" Margin="10 5 0 0" TextWrapping="Wrap" MaxLines="10"/>
-                <Button Command="{Binding AddContact}" Content="Add" Width="50" Grid.Row="9" Margin="0 15 0 0" HorizontalAlignment="Right"/>
-            </StackPanel> -->
-
-            <!-- <ListBox Width="400" Margin="10"
-                ItemsSource="{Binding Contacts}"
-                ItemTemplateSelector="{StaticResource dataTemplateSelector}">
-            </ListBox>
-        </Grid>-->
-        <Button Grid.Row="3" Grid.Column="0" Command="{Binding MasterVendorList}" Content="Vendor Master List" Width="150" Margin="5" HorizontalAlignment="Left"/>
+        
+        <Button Grid.Row="2" Grid.Column="0" Command="{Binding MasterVendorList}" Content="Vendor Master List" Width="150" Margin="5" HorizontalAlignment="Left"/>
     </Grid>
 </UserControl>
