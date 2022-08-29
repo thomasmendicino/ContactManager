@@ -10,18 +10,14 @@ namespace ContactManager.Services
 {
     public interface IVendorCodeValidator
     {
-        // fetch company name
+        // fetch vendor based on supplied vendor code and company name
         public Task<Vendor?> GetVendorFromMasterList(Vendor vendor);
 
-        // check if company name exists
-
-        // check if vendor code exists
-
-        // check if company name exists and vendor code does not match
-        // 1. Company exists and already has another vendor code.
-        // 1a. Company exists but vendor code was left blank.
-        // 2. Company does not exist but vendor code belongs to another company.
-        // 3. Company exists and vendor code matches.
-        // 4. Company does not exist, vendor code doesn't exist.
+        // Cases:
+        // 1. Vendor code was not supplied => do not save anything to master list.
+        // 2. Company name/Vendor code search returned nothing => save vendor to master list
+        // 3. Company name/Vendor code search returned an entry that matches both the supplied vendor code and company name => skip saving; already exists.
+        // 4. Company name/Vendor code search returned an entry and one of the properties doesn't match the supplied value => Return Error box indicating why company
+        //     will not be saved to master list.
     }
 }
