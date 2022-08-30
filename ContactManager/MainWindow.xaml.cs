@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 
 namespace ContactManager
@@ -26,8 +27,10 @@ namespace ContactManager
         }
 
         /// <summary>
-        /// Dispatcher timer runs on a different thread with lower priority. Since it may not be executed exactly at 0ms of the next second, any delays will be accumulated by the next
-        /// full 1 second delay. To address this, the current time is evaluated on each execution and subtracted from the next interval to determine when the timer will fire next.
+        /// Dispatcher timer runs on the UI thread with a lower priority* and is evaluated at the top of every Dispatcher loop. Since it may not be executed exactly at 0ms 
+        /// of the next second, any delays will be accumulated by the next full 1 second delay. To address this, the current time is evaluated on each execution and subtracted 
+        /// from the next interval to determine when the timer will fire next.
+        /// * Priority: (4) Background: The enumeration value is 4. Operations are processed after all other non-idle operations are completed.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
