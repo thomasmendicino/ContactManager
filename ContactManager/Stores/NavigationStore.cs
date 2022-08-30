@@ -3,7 +3,10 @@ using System;
 
 namespace ContactManager.Stores
 {
-    public class NavigationStore
+    /// <summary>
+	/// Provides a way to navigate between Views
+	/// </summary>
+	public class NavigationStore
     {
 		private ViewModelBase _currentViewModel;
 

@@ -9,6 +9,9 @@ using System.Windows;
 
 namespace ContactManager.Commands
 {
+    /// <summary>
+    /// Commands for saving entities when buttons are clicked.
+    /// </summary>
     public class AddContactCommand : AsyncCommandBase
     {
         private readonly AddCustomerViewModel? _addCustomerViewModel;
@@ -18,6 +21,15 @@ namespace ContactManager.Commands
         private readonly Func<ViewModelBase> _createViewModel;
         private bool _saveVendorCode;
 
+        /// <summary>
+        /// ContactList will contain the services to interact with the database. A mechanism for navigating to the home page is provided, and the appropriate
+        /// view model depending on if customers or vendors are being added.
+        /// </summary>
+        /// <param name="contactList"></param>
+        /// <param name="navigationStore"></param>
+        /// <param name="createListContactsViewModel"></param>
+        /// <param name="addCustomerViewModel"></param>
+        /// <param name="addVendorViewModel"></param>
         public AddContactCommand(ContactList contactList, NavigationStore navigationStore, Func<ListContactsViewModel> createListContactsViewModel,
             AddCustomerViewModel? addCustomerViewModel, AddVendorViewModel? addVendorViewModel)
         {
@@ -27,7 +39,11 @@ namespace ContactManager.Commands
             _addVendorViewModel = addVendorViewModel;
             _contactList = contactList;
         }
-
+        /// <summary>
+        /// No logic for disabling/enabling buttons at this time.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (_addVendorViewModel != null)
