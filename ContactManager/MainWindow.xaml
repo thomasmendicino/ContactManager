@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ContactManager" 
         xmlns:views="clr-namespace:ContactManager.Views"
-        xmlns:vms="clr-namespace:ContactManager.ViewModels"
+        xmlns:vms="clr-namespace:ContactManager.ViewModels" d:DataContext="{d:DesignInstance Type=vms:MainViewModel}"
         mc:Ignorable="d"
         Title="Contact Manager" Height="450" Width="800">
     
