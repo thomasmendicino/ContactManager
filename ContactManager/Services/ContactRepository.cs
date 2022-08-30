@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace ContactManager.Services
 {
+    /// <summary>
+    /// Service for fetching entities from the database.
+    /// </summary>
     public class ContactRepository : IContactRepository
     {
         private readonly ContactManagerDbContextFactory _dbContextFactory;
@@ -19,6 +22,10 @@ namespace ContactManager.Services
             _dbContextFactory = dbContextFactory;
         }
 
+        /// <summary>
+        /// Returns all vendors and all contacts in a single IEnumerable collection.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Contact>> GetAllContacts()
         {
             using (ContactManagerDbContext dbContext = _dbContextFactory.CreateDbContext())
@@ -67,6 +74,10 @@ namespace ContactManager.Services
             };
         }
 
+        /// <summary>
+        /// Returns all saved vendors from the vendor master list as an IEnumerable collection
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Vendor>> GetCompanyVendorList()
         {
             using (ContactManagerDbContext dbContext = _dbContextFactory.CreateDbContext())

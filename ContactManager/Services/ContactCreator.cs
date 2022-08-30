@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace ContactManager.Services
 {
+    /// <summary>
+    /// Service for saving entities to the database.
+    /// </summary>
     public class ContactCreator : IContactCreator
     {
         private readonly ContactManagerDbContextFactory _dbContextFactory;
@@ -14,6 +17,11 @@ namespace ContactManager.Services
             _dbContextFactory = dbContextFactory;
         }
 
+        /// <summary>
+        /// Saves a customer to the database.
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
         public async Task CreateCustomer(Customer customer)
         {
             CustomerDTO customerDTO = MapCustomer(customer);
@@ -25,7 +33,11 @@ namespace ContactManager.Services
                 dbContext.SaveChanges();
             }
         }
-
+        /// <summary>
+        /// Saves a vendor to the database.
+        /// </summary>
+        /// <param name="vendor"></param>
+        /// <returns></returns>
         public async Task CreateVendor(Vendor vendor)
         {
             VendorDTO vendorDTO = MapVendor(vendor);
@@ -61,6 +73,11 @@ namespace ContactManager.Services
             };
         }
 
+        /// <summary>
+        ///  Saves a vendor to the master list.
+        /// </summary>
+        /// <param name="vendor"></param>
+        /// <returns></returns>
         public async Task CreateVendorMasterRecord(Vendor vendor)
         {
             CompanyVendorDTO companyVendorDTO = MapCompanyVendor(vendor);

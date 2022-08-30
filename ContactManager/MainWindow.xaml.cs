@@ -16,10 +16,6 @@ namespace ContactManager
             this.Clock.Text = DateTime.Now.ToString();
             this.Loaded += MainWindow_Loaded;
         }
-
-        private void ButtonAddName_Click(object sender, RoutedEventArgs e)
-        {
-        }
         
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -29,6 +25,12 @@ namespace ContactManager
             _dispatcherTimer.Start();
         }
 
+        /// <summary>
+        /// Dispatcher timer runs on a different thread with lower priority. Since it may not be executed exactly at 0ms of the next second, any delays will be accumulated by the next
+        /// full 1 second delay. To address this, the current time is evaluated on each execution and subtracted from the next interval to determine when the timer will fire next.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dispatcherTimer_Tick(object? sender, EventArgs e)
         {
             DateTime now = DateTime.Now;

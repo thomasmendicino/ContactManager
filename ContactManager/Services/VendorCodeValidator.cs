@@ -19,6 +19,12 @@ namespace ContactManager.Services
             _dbContextFactory = dbContextFactory;
         }
 
+        /// <summary>
+        ///  Returns the first item found matching either the vendor code or the company name from the vendor master list.
+        ///  If either matches, the caller can assume it isn't safe to save the current vendor to the master list.
+        /// </summary>
+        /// <param name="vendor"></param>
+        /// <returns></returns>
         public async Task<Vendor?> GetVendorFromMasterList(Vendor vendor)
         {
             using (ContactManagerDbContext dbContext = _dbContextFactory.CreateDbContext())
